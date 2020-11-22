@@ -7,9 +7,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "moment": "^2.29.1",
     "plist": "^3.0.1",
     "prompts": "^2.4.0",
     "remarkable-typescript": "^1.1.0",
+    "shelljs": "^0.8.4",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {

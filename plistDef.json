@@ -1,0 +1,15 @@
+{
+  "Label": "com.demo.daemon.plist",
+  "RunAtLoad": true,
+  "StartInterval": 60,
+  "StandardErrorPath": "/Users/chylomicronman/git-repos/rt-prompt/stderr.log",
+  "StandardOutPath": "/Users/chylomicronman/git-repos/rt-prompt/stdout.log",
+  "EnvironmentVariables": {
+    "PATH": "<![CDATA[/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin]]>"
+  },
+  "WorkingDirectory": "/Users/chylomicronman/git-repos/rt-prompt",
+  "ProgramArguments": [
+    "/Users/chylomicronman/.nvm/versions/node/v12.19.0/bin/node",
+    "schedule-demo.js"
+  ]
+}

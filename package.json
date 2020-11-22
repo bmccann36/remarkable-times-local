@@ -1,0 +1,27 @@
+{
+  "name": "remarkable-times-local",
+  "version": "1.0.0",
+  "description": "Serverless webpack example using Typescript",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "plist": "^3.0.1",
+    "prompts": "^2.4.0",
+    "remarkable-typescript": "^1.1.0",
+    "source-map-support": "^0.5.10"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.18",
+    "@types/prompts": "^2.0.9",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "ts-loader": "^5.3.3",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.2.4"
+  },
+  "author": "",
+  "license": "MIT"
+}

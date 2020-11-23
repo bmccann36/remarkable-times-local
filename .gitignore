@@ -7,5 +7,4 @@ jspm_packages
 
 # Webpack directories
 .webpack
-userData/nlPreferences.json
-userData/deviceToken.txt
+userData/**

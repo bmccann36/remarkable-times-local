@@ -4,3 +4,7 @@ jspm_packages
 
 # user configuration
 userData/**
+generatedEBooks
+fetchedPages
+.DS_Store
+stdout.log

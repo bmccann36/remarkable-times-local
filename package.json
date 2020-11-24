@@ -7,14 +7,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.0",
+    "axios": "^0.21.0",
     "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "epub-gen": "^0.1.0",
     "figlet": "^1.5.0",
     "moment": "^2.29.1",
     "plist": "^3.0.1",
     "prompts": "^2.4.0",
     "remarkable-typescript": "^1.1.0",
     "shelljs": "^0.8.4",
-    "source-map-support": "^0.5.10"
+    "source-map-support": "^0.5.10",
+    "uuid": "^8.3.1"
   },
   "devDependencies": {
     "@types/node": "^10.12.18",

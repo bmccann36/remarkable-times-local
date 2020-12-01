@@ -9,6 +9,13 @@
       "args": ["offline"],
       "port": 9229,
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Launch Program",
+      "program": "${workspaceFolder}/asyncdemo.js",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
     }
   ]
 }

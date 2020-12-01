@@ -4,6 +4,8 @@ import axios from "axios";
 import { NewsletterData } from "../commonModels/NewsletterData";
 import { HydratedNl } from "../commonModels/HydratedNewsletter";
 
+const fetchedDocPath = path.join(__dirname, "..", "..", "/fetchedPages");
+
 const usersLetterListString = fs
   .readFileSync(
     path.join(__dirname, "..", "..", "/userData/nlPreferences.json")
@@ -15,6 +17,10 @@ const getContent = function (): Promise<HydratedNl[]> {
   // console.log(usersLetterListJson);
   const pendingPages = usersLetterListJson.map((nlData) => {
     return axios.get(nlData.url).then((res) => {
+      // fs.writeFileSync(
+      //   `${fetchedDocPath}/${nlData.displayName}.html`,
+      //   res.data
+      // );
       return {
         displayName: nlData.displayName,
         html: res.data,

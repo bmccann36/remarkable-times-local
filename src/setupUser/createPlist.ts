@@ -23,7 +23,10 @@ const createPlist = (): void => {
         "<![CDATA[/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin]]>",
     },
     WorkingDirectory: process.cwd(),
-    ProgramArguments: [nodeExecutablePath, "demoScript.js"], // TODO make this the real thing
+    ProgramArguments: [
+      nodeExecutablePath,
+      "lib/src/fetchNlContent/orchestrator.js",
+    ],
   };
 
   const plistFilePath =
@@ -39,8 +42,6 @@ const createPlist = (): void => {
   // load the latest service definition
   shelljs.exec(`launchctl load ${plistFilePath}`);
 };
-
-// createPlist() // TODO remove!!!!
 
 export default createPlist;
 

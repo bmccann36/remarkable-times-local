@@ -1,8 +1,8 @@
+import { HydratedNl } from "../commonModels/HydratedNewsletter";
+import deliverNlEbooks from './deliverNlEbooks';
+import generateEbook from "./generateEbook";
 import getContent from "./getContent";
 import reformatNlHtml from "./reformatNlHtml";
-import { HydratedNl } from "../commonModels/HydratedNewsletter";
-import generateEbook from "./generateEbook";
-import deliverNlEbooks from './deliverNlEbooks';
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + "-" + today.getDate();
@@ -21,13 +21,13 @@ const orchestrator = async function () {
   });
 
   console.log("generating epub zipfiles");
-  // // create the ePubZip
+  // create the ePubZip
   cleanedNlItemArray.forEach(async (nl: HydratedNl) => {
     const zipFilePath = process.cwd() + "/generatedEBooks/" + dateStr + "_" + nl.displayName + ".epub";
     await generateEbook(nl, zipFilePath);
   });
 
-  await sleep(2000) //? why is this here?
+  await sleep(2000) // good to pause so the filesystem has time to get caught up
 
   console.log("delivering eBooks to remarkable cloud");
 

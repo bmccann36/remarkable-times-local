@@ -9,7 +9,6 @@ const deviceToken = fs
   .readFileSync(path.join(__dirname, "..", "..", "/userData/deviceToken.txt"))
   .toString();
 
-console.log(deviceToken);
 
 const deliverNlEbooks = async function () {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {

@@ -8,3 +8,5 @@ generatedEBooks
 fetchedPages
 .DS_Store
 stdout.log
+lib
+sanitizedHtmlNls

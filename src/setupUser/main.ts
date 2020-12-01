@@ -1,17 +1,14 @@
+import * as chalk from "chalk";
+import * as figlet from "figlet";
+import * as fs from "fs";
+import * as path from "path";
 import * as prompts from "prompts";
 import { Remarkable } from "remarkable-typescript";
-import * as fs from "fs";
 import {
-  NewsletterData,
-  NlNameEnum,
-  NlMap,
+  NlNameEnum
 } from "../commonModels/NewsletterData";
-import { newsletterMap } from "../../static/newsletters";
-import * as path from "path";
-import { stdout } from "process";
-import * as chalk from "chalk";
+import { newsletterMap } from "../static/newsletters";
 import createPlist from "./createPlist";
-import * as figlet from "figlet";
 
 const userDataDir = path.join(process.cwd(), "userData");
 const oldTokenExists = checkForExistingToken();

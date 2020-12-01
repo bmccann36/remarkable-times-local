@@ -5,10 +5,11 @@
     "moduleResolution": "node",
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
+    "rootDir": "src",
     "sourceMap": true,
-    "target": "es2017",
+    "target": "es5",
     "outDir": "lib"
   },
-  "include": ["./**/*.ts"],
+  "include": ["./src/**/*.ts"],
   "exclude": ["node_modules/**/*", ".vscode/**/*"]
 }

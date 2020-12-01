@@ -1,7 +1,7 @@
 import {
   NlMap as NewsletterMap,
   NlNameEnum,
-} from "../src/commonModels/NewsletterData";
+} from "../commonModels/NewsletterData";
 
 export const newsletterMap: NewsletterMap = {
   [NlNameEnum.MORNING_BRIEFING]: {

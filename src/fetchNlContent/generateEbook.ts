@@ -15,7 +15,7 @@ const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string) {
     tempDir: process.env.TEMP_DIR_PATH,
     title: hydratedNl.displayName,
     author: "The New York Times",
-    cover: path.join(__dirname, "..", "..", "/static/nytImage.png"), // Url or File path, both ok.
+    cover: path.join(__dirname, "..", "..", "/images/nytImage.png"), // Url or File path, both ok.
     content: [
       {
         title: hydratedNl.displayName,

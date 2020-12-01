@@ -1,7 +1,6 @@
-import { Remarkable } from "remarkable-typescript";
-import * as path from "path";
 import * as fs from "fs";
-import { stdout } from "process";
+import * as path from "path";
+import { Remarkable } from "remarkable-typescript";
 import { v5 as uuidv5 } from "uuid";
 
 const ebookDir = path.join(__dirname, "..", "..", "/generatedEBooks");

@@ -4,9 +4,7 @@ import * as fs from "fs";
 import * as path from "path";
 import * as prompts from "prompts";
 import { Remarkable } from "remarkable-typescript";
-import {
-  NlNameEnum
-} from "../commonModels/NewsletterData";
+import { NlNameEnum } from "../commonModels/NewsletterData";
 import { newsletterMap } from "../static/newsletters";
 import createPlist from "./createPlist";
 
@@ -15,7 +13,7 @@ const oldTokenExists = checkForExistingToken();
 const rmClient = new Remarkable();
 
 (async () => {
-  printBanner()
+  printBanner();
   //? CONFIGURE DEVICE TOKEN IF NOT ALREADY STORED
   const pairDevicePrompts = await prompts([
     {
@@ -54,7 +52,9 @@ const rmClient = new Remarkable();
   ]);
   // console.log('promptSection2 :>> ', nlSelection);
   const preferenceAsJson = JSON.stringify(
-    setPreferencesPrompts["selected-newsletters"]
+    setPreferencesPrompts["selected-newsletters"],
+    null,
+    2
   );
   fs.writeFileSync("./userData/nlPreferences.json", preferenceAsJson);
   console.log(

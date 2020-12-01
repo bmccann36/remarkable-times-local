@@ -16,4 +16,8 @@ export const newsletterMap: NewsletterMap = {
     displayName: "Evening Briefing",
     url: "https://static.nytimes.com/email-content/NE_sample.html",
   },
+  [NlNameEnum.NYC_BRIEFING]: {
+    displayName: "New York Today",
+    url: "https://static.nytimes.com/email-content/UR_sample.html",
+  },
 };

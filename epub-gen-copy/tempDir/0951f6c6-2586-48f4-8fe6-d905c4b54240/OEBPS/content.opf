@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf"
+         version="3.0"
+         unique-identifier="BookId"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xml:lang="en"
+         xmlns:media="http://www.idpf.org/epub/vocab/overlays/#"
+         prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:opf="http://www.idpf.org/2007/opf">
+
+        <dc:identifier id="BookId">0951f6c6-2586-48f4-8fe6-d905c4b54240</dc:identifier>
+        <meta refines="#BookId" property="identifier-type" scheme="onix:codelist5">22</meta>
+        <meta property="dcterms:identifier" id="meta-identifier">BookId</meta>
+        <dc:title>Evening Briefing</dc:title>
+        <meta property="dcterms:title" id="meta-title">Evening Briefing</meta>
+        <dc:language>en</dc:language>
+        <meta property="dcterms:language" id="meta-language">en</meta>
+        <meta property="dcterms:modified">2020-12-01T12:21:10Z</meta>
+        <dc:creator id="creator">The New York Times</dc:creator>
+        <meta refines="#creator" property="file-as">The New York Times</meta>
+        <meta property="dcterms:publisher">anonymous</meta>
+        <dc:publisher>anonymous</dc:publisher>
+        
+        <meta property="dcterms:date">2020-12-1</meta>
+        <dc:date>2020-12-1</dc:date>
+        <meta property="dcterms:rights">All rights reserved</meta>
+        <dc:rights>Copyright &#x00A9; 2020 by anonymous</dc:rights>
+        <meta name="cover" content="image_cover"/>
+        <meta name="generator" content="epub-gen" />
+        <meta property="ibooks:specified-fonts">true</meta>
+
+    </metadata>
+
+    <manifest>
+        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+        <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="css" href="style.css" media-type="text/css" />
+
+        
+        <item id="image_cover" href="cover.png" media-type="image/png" />
+        
+        
+        
+        <item id="image_0" href="images/265a37ed-f0d5-48f1-b04f-d9f4cd5c135b.png" media-type="image/png" />
+        
+        <item id="image_1" href="images/02c69a2d-a459-4f81-8948-abbc05b98f71.png" media-type="image/png" />
+        
+        <item id="image_2" href="images/9a20482a-d770-4a19-bde5-c7a66188a85a.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_3" href="images/fd7e0bd4-476e-4233-9894-03bb98e485ec.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_4" href="images/b5d82370-f6c6-4218-b584-d5cfdf76b4ec.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_5" href="images/60ab8ce7-af2f-4980-9a8d-84a6c6d6119d.png" media-type="image/png" />
+        
+        <item id="image_6" href="images/f06dd2fd-dc24-49a1-bb01-b578b7d78a10.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_7" href="images/52fdeea2-a2cb-44f5-b2aa-ae1f161913bd.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_8" href="images/350e6f6b-0e04-4221-b7ee-557e3324829c.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_9" href="images/a9a1d0b5-6cbe-4140-8511-4c3264897952.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_10" href="images/e49f3c7c-3fdc-43cf-a6e5-96af88cb6596.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_11" href="images/bff27203-5929-40f3-ba4a-6981d94f89d2.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_12" href="images/c3c950ba-5e86-4fab-8a15-e40df53c0088.png" media-type="image/png" />
+        
+        <item id="image_13" href="images/403e7326-93ac-4d50-a0da-ce633811a07c.png" media-type="image/png" />
+        
+        <item id="image_14" href="images/163d4881-45c4-4a01-b119-009cc98cc494.png" media-type="image/png" />
+        
+        
+        
+        <item id="content_0_item_0" href="0_evening-briefing.xhtml" media-type="application/xhtml+xml" />
+        
+
+        
+    </manifest>
+
+    <spine toc="ncx">
+        
+            
+        
+        <itemref idref="toc" />
+        
+            
+                <itemref idref="content_0_item_0"/>
+            
+        
+    </spine>
+    <guide>
+        <reference type="text" title="Table of Content" href="toc.xhtml"/>
+    </guide>
+</package>

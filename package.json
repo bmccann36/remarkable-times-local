@@ -11,7 +11,7 @@
     "axios": "^0.21.0",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
-    "epub-gen": "^0.1.0",
+    "epub-gen": "file:./epub-gen-copy",
     "figlet": "^1.5.0",
     "moment": "^2.29.1",
     "plist": "^3.0.1",

@@ -1,23 +1,24 @@
-import {
-  NlMap as NewsletterMap,
-  NlNameEnum,
-} from "../commonModels/NewsletterData";
+import { NlMap as NewsletterMap } from "../commonModels/NewsletterData";
 
 export const newsletterMap: NewsletterMap = {
-  [NlNameEnum.MORNING_BRIEFING]: {
+  MORNING_BRIEFING: {
     displayName: "Morning Briefing",
     url: "https://static.nytimes.com/email-content/NN_sample.html",
+    deliveryInfo: { timeOfDay: "morning", frequency: "weekdays" },
   },
-  [NlNameEnum.CORONA_BRIEFING]: {
+  CORONA_BRIEFING: {
     displayName: "Coronavrius Briefing",
     url: "https://static.nytimes.com/email-content/CB_sample.html",
+    deliveryInfo: { timeOfDay: "morning", frequency: "weekdays" },
   },
-  [NlNameEnum.EVENING_BRIEFING]: {
+  EVENING_BRIEFING: {
     displayName: "Evening Briefing",
     url: "https://static.nytimes.com/email-content/NE_sample.html",
+    deliveryInfo: { timeOfDay: "evening", frequency: "weekdays" },
   },
-  [NlNameEnum.NYC_BRIEFING]: {
+  NYC_BRIEFING: {
     displayName: "New York Today",
     url: "https://static.nytimes.com/email-content/UR_sample.html",
+    deliveryInfo: { timeOfDay: "morning", frequency: "weekdays" },
   },
 };

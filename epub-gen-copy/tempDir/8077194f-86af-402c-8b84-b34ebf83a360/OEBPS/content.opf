@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf"
+         version="3.0"
+         unique-identifier="BookId"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xml:lang="en"
+         xmlns:media="http://www.idpf.org/epub/vocab/overlays/#"
+         prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:opf="http://www.idpf.org/2007/opf">
+
+        <dc:identifier id="BookId">8077194f-86af-402c-8b84-b34ebf83a360</dc:identifier>
+        <meta refines="#BookId" property="identifier-type" scheme="onix:codelist5">22</meta>
+        <meta property="dcterms:identifier" id="meta-identifier">BookId</meta>
+        <dc:title>Morning Briefing</dc:title>
+        <meta property="dcterms:title" id="meta-title">Morning Briefing</meta>
+        <dc:language>en</dc:language>
+        <meta property="dcterms:language" id="meta-language">en</meta>
+        <meta property="dcterms:modified">2020-12-01T12:21:10Z</meta>
+        <dc:creator id="creator">The New York Times</dc:creator>
+        <meta refines="#creator" property="file-as">The New York Times</meta>
+        <meta property="dcterms:publisher">anonymous</meta>
+        <dc:publisher>anonymous</dc:publisher>
+        
+        <meta property="dcterms:date">2020-12-1</meta>
+        <dc:date>2020-12-1</dc:date>
+        <meta property="dcterms:rights">All rights reserved</meta>
+        <dc:rights>Copyright &#x00A9; 2020 by anonymous</dc:rights>
+        <meta name="cover" content="image_cover"/>
+        <meta name="generator" content="epub-gen" />
+        <meta property="ibooks:specified-fonts">true</meta>
+
+    </metadata>
+
+    <manifest>
+        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+        <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="css" href="style.css" media-type="text/css" />
+
+        
+        <item id="image_cover" href="cover.png" media-type="image/png" />
+        
+        
+        
+        <item id="image_0" href="images/7ee7285e-31d3-4702-acaa-7774aa311c16.png" media-type="image/png" />
+        
+        <item id="image_1" href="images/2e096f8e-8bfb-4cad-8b9e-e53091c44c17.png" media-type="image/png" />
+        
+        <item id="image_2" href="images/dd8811f5-6957-4eae-811f-64f8c98bdd3d.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_3" href="images/98b92fc5-5d5b-4823-8483-a1fd4066655c.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_4" href="images/0bdb3ffa-c271-4ffb-b51c-aac160d59b14.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_5" href="images/d4a2157c-786c-4dce-b920-3fc79ab83a05.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_6" href="images/c5e0e6e9-2e66-480d-9932-bb634f1d8ec1.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_7" href="images/c27fefd7-2af0-4e36-9cc0-1ce6088074b2.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_8" href="images/4937f516-0c49-44b8-9552-2258865eb410.png" media-type="image/png" />
+        
+        <item id="image_9" href="images/410c622e-36d8-4484-a7a8-271282df19a5.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_10" href="images/745068d9-86ac-4416-b1f6-e4b8bea91250.png" media-type="image/png" />
+        
+        <item id="image_11" href="images/5e253b28-b3ef-4977-a541-a6321d34373c.png" media-type="image/png" />
+        
+        <item id="image_12" href="images/4cccdd5c-4a11-449a-80e2-3a9808d0c5a6.png" media-type="image/png" />
+        
+        
+        
+        <item id="content_0_item_0" href="0_morning-briefing.xhtml" media-type="application/xhtml+xml" />
+        
+
+        
+    </manifest>
+
+    <spine toc="ncx">
+        
+            
+        
+        <itemref idref="toc" />
+        
+            
+                <itemref idref="content_0_item_0"/>
+            
+        
+    </spine>
+    <guide>
+        <reference type="text" title="Table of Content" href="toc.xhtml"/>
+    </guide>
+</package>

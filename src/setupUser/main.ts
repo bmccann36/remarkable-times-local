@@ -4,7 +4,6 @@ import * as fs from "fs";
 import * as path from "path";
 import * as prompts from "prompts";
 import { Remarkable } from "remarkable-typescript";
-import { NlNameEnum } from "../commonModels/NewsletterData";
 import { newsletterMap } from "../static/newsletters";
 import createPlist from "./createPlist";
 
@@ -105,7 +104,7 @@ async function getAndSaveToken(code: string) {
 }
 function getNlDataArray() {
   //? display the list of possible newsletters a user can get
-  const names = Object.values(NlNameEnum);
+  const names = Object.keys(newsletterMap);
   const choices = names.map((name: string) => {
     return {
       title: newsletterMap[name].displayName,

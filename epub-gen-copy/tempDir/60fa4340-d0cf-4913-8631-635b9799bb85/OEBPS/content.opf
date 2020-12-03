@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://www.idpf.org/2007/opf"
+         version="3.0"
+         unique-identifier="BookId"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xml:lang="en"
+         xmlns:media="http://www.idpf.org/epub/vocab/overlays/#"
+         prefix="ibooks: http://vocabulary.itunes.apple.com/rdf/ibooks/vocabulary-extensions-1.0/">
+
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+              xmlns:opf="http://www.idpf.org/2007/opf">
+
+        <dc:identifier id="BookId">60fa4340-d0cf-4913-8631-635b9799bb85</dc:identifier>
+        <meta refines="#BookId" property="identifier-type" scheme="onix:codelist5">22</meta>
+        <meta property="dcterms:identifier" id="meta-identifier">BookId</meta>
+        <dc:title>Coronavrius Briefing</dc:title>
+        <meta property="dcterms:title" id="meta-title">Coronavrius Briefing</meta>
+        <dc:language>en</dc:language>
+        <meta property="dcterms:language" id="meta-language">en</meta>
+        <meta property="dcterms:modified">2020-12-01T12:15:01Z</meta>
+        <dc:creator id="creator">The New York Times</dc:creator>
+        <meta refines="#creator" property="file-as">The New York Times</meta>
+        <meta property="dcterms:publisher">anonymous</meta>
+        <dc:publisher>anonymous</dc:publisher>
+        
+        <meta property="dcterms:date">2020-12-1</meta>
+        <dc:date>2020-12-1</dc:date>
+        <meta property="dcterms:rights">All rights reserved</meta>
+        <dc:rights>Copyright &#x00A9; 2020 by anonymous</dc:rights>
+        <meta name="cover" content="image_cover"/>
+        <meta name="generator" content="epub-gen" />
+        <meta property="ibooks:specified-fonts">true</meta>
+
+    </metadata>
+
+    <manifest>
+        <item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
+        <item id="toc" href="toc.xhtml" media-type="application/xhtml+xml" properties="nav"/>
+        <item id="css" href="style.css" media-type="text/css" />
+
+        
+        <item id="image_cover" href="cover.png" media-type="image/png" />
+        
+        
+        
+        <item id="image_0" href="images/ebf8a4bc-feb8-4642-91bd-0b007dc838d0.png" media-type="image/png" />
+        
+        <item id="image_1" href="images/2a691e52-801e-4163-b160-b15514892cf0.png" media-type="image/png" />
+        
+        <item id="image_2" href="images/bc352752-1274-4027-a544-34f2c985b3ed.png" media-type="image/png" />
+        
+        <item id="image_3" href="images/41114e18-d510-4efb-b9d1-b6f2101f5be8.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_4" href="images/63b469d7-5997-4865-bc2e-c99b7b3e0256.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_5" href="images/4c3c0a3f-b2fc-48b2-8bd5-bdec3ad910af.jpeg" media-type="image/jpeg" />
+        
+        <item id="image_6" href="images/1f3b6823-5416-4572-86e2-ad2f2abed98e.png" media-type="image/png" />
+        
+        <item id="image_7" href="images/e4c72014-a449-4b06-a1a9-6b74fdbd6241.png" media-type="image/png" />
+        
+        <item id="image_8" href="images/f64b56e4-a8b7-4c3e-997d-575d2ca183c8.png" media-type="image/png" />
+        
+        
+        
+        <item id="content_0_item_0" href="0_coronavrius-briefing.xhtml" media-type="application/xhtml+xml" />
+        
+
+        
+    </manifest>
+
+    <spine toc="ncx">
+        
+            
+        
+        <itemref idref="toc" />
+        
+            
+                <itemref idref="content_0_item_0"/>
+            
+        
+    </spine>
+    <guide>
+        <reference type="text" title="Table of Content" href="toc.xhtml"/>
+    </guide>
+</package>

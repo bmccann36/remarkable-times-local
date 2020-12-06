@@ -3,13 +3,14 @@ import * as figlet from "figlet";
 import * as fs from "fs";
 import * as path from "path";
 import * as prompts from "prompts";
-import { Remarkable } from "remarkable-typescript";
+import { ItemResponse, Remarkable } from "remarkable-typescript";
 import { newsletterMap } from "../static/newsletters";
 import createPlist from "./createPlist";
+import * as getUuid from "uuid-by-string";
 
 const userDataDir = path.join(process.cwd(), "userData");
 const oldTokenExists = checkForExistingToken();
-const rmClient = new Remarkable();
+const client = new Remarkable();
 
 (async () => {
   printBanner();
@@ -59,6 +60,7 @@ const rmClient = new Remarkable();
   console.log(
     chalk.green("setting up a service on your machine to deliver newsletters")
   );
+  await createRemarkableDirectory();
   // sets up a daemon process on user's machine
   createPlist();
   console.log(
@@ -67,6 +69,29 @@ const rmClient = new Remarkable();
     )
   );
 })();
+
+async function createRemarkableDirectory() {
+  const deviceToken = fs
+    .readFileSync(path.join(__dirname, "..", "..", "/userData/deviceToken.txt"))
+    .toString();
+  const client = new Remarkable({ deviceToken });
+  await client.refreshToken();
+  const rtFolder: ItemResponse = await client.getItemWithId(
+    getUuid("Remarkable Times")
+  );
+  if (rtFolder.Success) {
+    console.log(
+      chalk.yellow("Remarkable Times folder already exists, skipping creation")
+    );
+  } else {
+    console.log(chalk.yellow("no Remarkable Times folder exists, will create"));
+    const dirCreateRes = await client.createDirectory(
+      "Remarkable Times",
+      getUuid("Remarkable Times")
+    );
+    console.log(chalk.yellow("directory created with ID: ", dirCreateRes));
+  }
+}
 
 function checkForExistingToken() {
   let tokenExists = false;
@@ -98,7 +123,7 @@ async function getAndSaveToken(code: string) {
     chalk.green("using code to register remarkable-times with your device...")
   );
 
-  const deviceToken = await rmClient.register({ code: code });
+  const deviceToken = await client.register({ code: code });
   // ? write token to userData directory
   fs.writeFileSync("./userData/deviceToken.txt", deviceToken);
 }

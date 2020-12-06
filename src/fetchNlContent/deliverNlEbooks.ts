@@ -2,12 +2,12 @@ import * as fs from "fs";
 import * as path from "path";
 import { Remarkable } from "remarkable-typescript";
 import { v5 as uuidv5 } from "uuid";
+import * as getUuid from "uuid-by-string";
 
 const ebookDir = path.join(__dirname, "..", "..", "/generatedEBooks");
 const deviceToken = fs
   .readFileSync(path.join(__dirname, "..", "..", "/userData/deviceToken.txt"))
   .toString();
-
 
 const deliverNlEbooks = async function () {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {
@@ -22,7 +22,7 @@ const deliverNlEbooks = async function () {
       nlName,
       hashName(nlName),
       epubFileBuffer,
-      hashName("NYT briefings")
+      getUuid("Remarkable Times")
     );
   });
 };

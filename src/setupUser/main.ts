@@ -49,7 +49,7 @@ const rmClient = new Remarkable();
       choices: getNlDataArray(),
     },
   ]);
-  // console.log('promptSection2 :>> ', nlSelection);
+  // console.log("promptSection2 :>> ", setPreferencesPrompts);
   const preferenceAsJson = JSON.stringify(
     setPreferencesPrompts["selected-newsletters"],
     null,

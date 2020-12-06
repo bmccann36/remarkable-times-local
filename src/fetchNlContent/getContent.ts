@@ -1,10 +1,8 @@
 import * as fs from "fs";
 import * as path from "path";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { NewsletterData } from "../commonModels/NewsletterData";
 import { HydratedNl } from "../commonModels/HydratedNewsletter";
-
-const fetchedDocPath = path.join(__dirname, "..", "..", "/fetchedPages");
 
 const usersLetterListString = fs
   .readFileSync(
@@ -13,14 +11,18 @@ const usersLetterListString = fs
   .toString();
 const usersLetterListJson = <NewsletterData[]>JSON.parse(usersLetterListString);
 
-const getContent = function (): Promise<HydratedNl[]> {
-  // console.log(usersLetterListJson);
-  const pendingPages = usersLetterListJson.map((nlData) => {
+const getContent = function (timeOfDay: string): Promise<HydratedNl[]> {
+  console.log(`[filter newsletters] fetching only ${timeOfDay} newsletters`);
+  const lettersToFetch: NewsletterData[] = usersLetterListJson.filter(
+    (nlData: NewsletterData) => {
+      return nlData.deliveryInfo.timeOfDay == timeOfDay;
+    }
+  );
+
+  const pendingPages = lettersToFetch.map((nlData) => {
     return axios.get(nlData.url).then((res) => {
-      // fs.writeFileSync(
-      //   `${fetchedDocPath}/${nlData.displayName}.html`,
-      //   res.data
-      // );
+      //? for when we want to write to file for debugging
+      // writeFetchedNl(nlData, res);
       return {
         displayName: nlData.displayName,
         html: res.data,
@@ -30,12 +32,10 @@ const getContent = function (): Promise<HydratedNl[]> {
   return Promise.all(pendingPages);
 };
 
-// ? write to file version
-// const fetchedDocPath = path.join(__dirname, "..", "..", "/fetchedPages");
-// usersLetterListJson.map((nlData) => {
-//   axios.get(nlData.url).then((res) => {
-//     fs.writeFileSync(`${fetchedDocPath}/${nlData.displayName}.html`, res.data);
-//   });
-// });
-
 export default getContent;
+
+function writeFetchedNl(nlData: NewsletterData, res: AxiosResponse) {
+  const fetchedDocPath = path.join(__dirname, "..", "..", "/fetchedPages");
+
+  fs.writeFileSync(`${fetchedDocPath}/${nlData.displayName}.html`, res.data);
+}

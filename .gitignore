@@ -10,3 +10,8 @@ fetchedPages
 stdout.log
 lib
 sanitizedHtmlNls
+epub-gen-copy/tempDir/**
+scratch.ts
+scratch.html
+stderr.log
+stderr.log

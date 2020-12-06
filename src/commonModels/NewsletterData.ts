@@ -6,7 +6,7 @@ export interface NewsletterData {
   description?: string;
 }
 
-interface DeliveryInfo {
+export interface DeliveryInfo {
   timeOfDay: "morning" | "evening";
   frequency: "weekdays" | "weekends" | "custom";
 }

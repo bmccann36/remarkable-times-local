@@ -55,8 +55,12 @@ function getCalendarInterval() {
       Hour: 7,
     },
     {
-      Hour: 7,
-      Minute: 30,
+      Hour: 18,
+      Minute: 5,
+    },
+    {
+      Hour: 18,
+      Minute: 10,
     },
   ];
 }

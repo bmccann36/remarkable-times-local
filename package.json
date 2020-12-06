@@ -20,6 +20,7 @@
     "remarkable-typescript": "^1.1.0",
     "shelljs": "^0.8.4",
     "source-map-support": "^0.5.10",
+    "tslog": "^3.0.1",
     "uuid": "^8.3.1",
     "uuid-by-string": "^3.0.2"
   },

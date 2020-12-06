@@ -5,6 +5,7 @@ import deliverNlEbooks from "./deliverNlEbooks";
 import generateEbook from "./generateEbook";
 import getContent from "./getContent";
 import reformatNlHtml from "./reformatNlHtml";
+import log from "../logger";
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + "-" + today.getDate();
@@ -13,14 +14,14 @@ const ebookDir = path.join(__dirname, "..", "..", "/generatedEBooks");
 
 const orchestrator = async function () {
   // clear out old newsletter epubs
-  console.log("removing previously generated ebooks");
+  log.info("removing previously generated ebooks");
   removeOldContent();
 
   // fetch newsletters as array of html text strings
-  console.log("fetching newsletters");
+  log.info("fetching newsletters");
   const nlContentArray: HydratedNl[] = await getContent(timeOfDay);
 
-  console.log("removing font formatting for e-pub optimization");
+  log.info("removing font formatting for e-pub optimization");
   const cleanedNlItemArray: HydratedNl[] = nlContentArray.map((item) => {
     return {
       displayName: item.displayName,
@@ -28,9 +29,11 @@ const orchestrator = async function () {
     };
   });
 
-  console.log("generating epub zipfiles");
+  log.info("generating epub zipfiles");
   // create the ePubZip
+  let numToDeliver = 0;
   cleanedNlItemArray.forEach(async (nl: HydratedNl) => {
+    numToDeliver++;
     const zipFilePath =
       process.cwd() +
       "/generatedEBooks/" +
@@ -43,9 +46,9 @@ const orchestrator = async function () {
 
   await sleep(2000); // good to pause so the filesystem has time to get caught up
 
-  console.log("delivering eBooks to remarkable cloud");
+  log.info("delivering eBooks to remarkable cloud");
 
-  await deliverNlEbooks();
+  await deliverNlEbooks(numToDeliver);
 };
 
 //* START ORCHESTRATION

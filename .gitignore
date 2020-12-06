@@ -17,3 +17,4 @@ stderr.log
 stderr.log
 
 .env
+logs/**

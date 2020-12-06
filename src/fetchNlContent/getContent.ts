@@ -3,6 +3,7 @@ import * as path from "path";
 import axios, { AxiosResponse } from "axios";
 import { NewsletterData } from "../commonModels/NewsletterData";
 import { HydratedNl } from "../commonModels/HydratedNewsletter";
+import log from "../logger";
 
 const usersLetterListString = fs
   .readFileSync(
@@ -12,7 +13,7 @@ const usersLetterListString = fs
 const usersLetterListJson = <NewsletterData[]>JSON.parse(usersLetterListString);
 
 const getContent = function (timeOfDay: string): Promise<HydratedNl[]> {
-  console.log(`[filter newsletters] fetching only ${timeOfDay} newsletters`);
+  log.info(`[filter newsletters] will only deliver ${timeOfDay} newsletters`);
   const lettersToFetch: NewsletterData[] = usersLetterListJson.filter(
     (nlData: NewsletterData) => {
       return nlData.deliveryInfo.timeOfDay == timeOfDay;

@@ -19,6 +19,7 @@ class SimpleStd implements IStd {
 const log: Logger = new Logger(
   /* specify console overwrite sot we capture console.log by 3rd party libs */ {
     overwriteConsole: true,
+    minLevel: "info"
   }
 );
 log.attachTransport(

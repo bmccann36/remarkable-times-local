@@ -1,8 +1,6 @@
-import * as path from "path";
 import * as Epub from "epub-gen";
-import { title } from "process";
+import * as path from "path";
 import { HydratedNl } from "../commonModels/HydratedNewsletter";
-import log from "../logger";
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + "-" + today.getDate();

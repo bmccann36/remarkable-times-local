@@ -4,7 +4,8 @@
   "description": "",
   "main": "lib/fetchNlContent/orchestrator.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --no-deprecation lib/fetchNlContent/orchestrator.js"
   },
   "dependencies": {
     "@types/uuid": "^8.3.0",
@@ -12,7 +13,7 @@
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.3",
     "dot-env": "0.0.1",
-    "epub-gen": "file:./epub-gen-copy",
+    "epub-gen": "^0.1.0",
     "figlet": "^1.5.0",
     "moment": "^2.29.1",
     "plist": "^3.0.1",

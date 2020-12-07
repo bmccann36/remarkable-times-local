@@ -15,8 +15,8 @@ const createPlist = (): void => {
   const plistData = {
     Label: "com.rt-local.daemon.plist",
     // RunAtLoad: true,
-    StandardErrorPath: process.cwd() + "/stderr.log",
-    StandardOutPath: process.cwd() + "/stdout.log",
+    StandardErrorPath: process.cwd() + "/logs/stderr.log",
+    StandardOutPath: process.cwd() + "/logs/stdout.log",
     StartCalendarInterval: getCalendarInterval(),
     EnvironmentVariables: {
       PATH:

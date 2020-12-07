@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
 import { Remarkable } from "remarkable-typescript";
-import { v5 as uuidv5 } from "uuid";
 import * as getUuid from "uuid-by-string";
 import log from "../logger";
 
@@ -43,7 +42,9 @@ const deliverNlEbooks = async function (numToDeliver: number) {
   }
   // report on the number that were delivered
   else {
-    log.info(`delivered ${numDelivered} out of ${numToDeliver} newsletters to deliver`);
+    log.info(
+      `delivered ${numDelivered} out of ${numToDeliver} newsletters to deliver`
+    );
   }
 };
 

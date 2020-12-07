@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "lib": ["es2017"],
+    "module": "commonjs",
     "removeComments": true,
     "moduleResolution": "node",
     // "noUnusedLocals": true,
     // "noUnusedParameters": true,
     "rootDir": "src",
     "sourceMap": true,
-    "target": "es5",
-    "outDir": "lib"
+    "outDir": "lib",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "incremental": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules/**/*", ".vscode/**/*"]

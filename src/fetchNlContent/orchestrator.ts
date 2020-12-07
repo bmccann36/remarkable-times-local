@@ -12,9 +12,6 @@ const dateStr = today.getMonth() + 1 + "-" + today.getDate();
 const timeOfDay = today.getHours() < 12 ? "morning" : "evening";
 const ebookDir = path.join(__dirname, "..", "..", "/generatedEBooks");
 
-//? this is not an actual error it's just so that we can see date time in stderr.log
-console.error("\n" + new Date().toISOString() + "  STARTING ORCHESTRATOR\n");
-
 const orchestrator = async function () {
   // clear out old newsletter epubs
   log.info("removing previously generated ebooks");

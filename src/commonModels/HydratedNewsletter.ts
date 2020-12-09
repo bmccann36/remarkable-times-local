@@ -1,4 +1,5 @@
-export interface HydratedNl  {
-  displayName: string;
+import { NewsletterData } from "./NewsletterData";
+
+export interface HydratedNl extends NewsletterData  {
   html: string;
 }

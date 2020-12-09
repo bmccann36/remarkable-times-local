@@ -1,46 +1,46 @@
-import * as fs from "fs";
-import * as path from "path";
-import { HydratedNl } from "../commonModels/HydratedNewsletter";
-import deliverNlEbooks from "./deliverNlEbooks";
-import generateEbook from "./generateEbook";
-import getContent from "./getContent";
-import reformatNlHtml from "./reformatNlHtml";
-import log from "../logger";
+import * as fs from 'fs';
+import * as path from 'path';
+import { HydratedNl } from '../commonModels/HydratedNewsletter';
+import deliverNlEbooks from './deliverNlEbooks';
+import generateEbook from './generateEbook';
+import getContent from './getContent';
+import reformatNlHtml from './reformatNlHtml';
+import log from '../logger';
+import recordHistoryAndFilterOldContent from './persistContentHistory';
 
 const today = new Date();
-const dateStr = today.getMonth() + 1 + "-" + today.getDate();
-const timeOfDay = today.getHours() < 12 ? "morning" : "evening";
-const ebookDir = path.join(__dirname, "..", "..", "/generatedEBooks");
+const dateStr = today.getMonth() + 1 + '-' + today.getDate();
+const timeOfDay = today.getHours() < 12 ? 'morning' : 'evening';
+const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
 
 const orchestrator = async function () {
+  log.info('\n \n START PROCESS')
   // clear out old newsletter epubs
-  log.info("removing previously generated ebooks");
+  log.info('removing previously generated ebooks');
   removeOldContent();
 
   // fetch newsletters as array of html text strings
-  log.info("fetching newsletters");
+  log.info('fetching newsletters');
   const nlContentArray: HydratedNl[] = await getContent(timeOfDay);
 
-  log.info("removing font formatting for e-pub optimization");
-  const cleanedNlItemArray: HydratedNl[] = nlContentArray.map((item) => {
-    return {
-      displayName: item.displayName,
-      html: reformatNlHtml(item.html),
-    };
+  const freshNlContentArray = recordHistoryAndFilterOldContent(nlContentArray);
+
+  log.info('removing font formatting for e-pub optimization');
+  const cleanedNlItemArray: HydratedNl[] = freshNlContentArray.map((item) => {
+    return Object.assign(
+      {
+        html: reformatNlHtml(item.html),
+      },
+      item
+    );
   });
 
-  log.info("generating epub zipfiles");
+  log.info('generating epub zipfiles');
   // create the ePubZip
   let numToDeliver = 0;
   cleanedNlItemArray.forEach(async (nl: HydratedNl) => {
     numToDeliver++;
-    const zipFilePath =
-      process.cwd() +
-      "/generatedEBooks/" +
-      dateStr +
-      "_" +
-      nl.displayName +
-      ".epub";
+    const zipFilePath = process.cwd() + '/generatedEBooks/' + dateStr + '_' + nl.title + '.epub';
     await generateEbook(nl, zipFilePath);
   });
 
@@ -56,7 +56,7 @@ orchestrator();
 
 function removeOldContent() {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {
-    return nlName.includes(".epub");
+    return nlName.includes('.epub');
   });
   listOfNls.forEach((nlName: string) => {
     fs.unlinkSync(path.join(ebookDir, nlName));

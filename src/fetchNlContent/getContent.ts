@@ -21,13 +21,16 @@ const getContent = function (timeOfDay: string): Promise<HydratedNl[]> {
   );
 
   const pendingPages = lettersToFetch.map((nlData) => {
-    return axios.get(nlData.url).then((res) => {
+    return axios.get(nlData.sampleUrl).then((res) => {
       //? for when we want to write to file for debugging
       // writeFetchedNl(nlData, res);
-      return {
-        displayName: nlData.displayName,
-        html: res.data,
-      };
+      const hydrated: HydratedNl = Object.assign(
+        {
+          html: res.data,
+        },
+        nlData
+      );
+      return hydrated;
     });
   });
   return Promise.all(pendingPages);
@@ -38,5 +41,5 @@ export default getContent;
 function writeFetchedNl(nlData: NewsletterData, res: AxiosResponse) {
   const fetchedDocPath = path.join(__dirname, "..", "..", "/fetchedPages");
 
-  fs.writeFileSync(`${fetchedDocPath}/${nlData.displayName}.html`, res.data);
+  fs.writeFileSync(`${fetchedDocPath}/${nlData.title}.html`, res.data);
 }

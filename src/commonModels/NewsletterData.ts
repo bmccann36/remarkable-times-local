@@ -1,9 +1,10 @@
 import deliverNlEbooks from "../fetchNlContent/deliverNlEbooks";
 export interface NewsletterData {
-  displayName: string;
-  url: string;
-  deliveryInfo: DeliveryInfo;
-  description?: string;
+  newsletterId: string,
+  title: string;
+  sampleUrl: string;
+  deliveryInfo: DeliveryInfo; //TODO deprecate in favor of nyt format
+  caption?: string;
 }
 
 export interface DeliveryInfo {

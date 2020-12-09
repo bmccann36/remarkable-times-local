@@ -132,7 +132,7 @@ function getNlDataArray() {
   const names = Object.keys(newsletterMap);
   const choices = names.map((name: string) => {
     return {
-      title: newsletterMap[name].displayName,
+      title: newsletterMap[name].title,
       value: newsletterMap[name],
     };
   });

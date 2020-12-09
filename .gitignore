@@ -18,3 +18,4 @@ stderr.log
 
 .env
 logs/**
+tsconfig.tsbuildinfo

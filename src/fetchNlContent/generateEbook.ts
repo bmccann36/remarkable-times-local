@@ -11,12 +11,12 @@ const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string) {
    */
   const ebookOptions = {
     tempDir: process.env.TEMP_DIR_PATH,
-    title: hydratedNl.displayName,
+    title: hydratedNl.title,
     author: "The New York Times",
     cover: path.join(__dirname, "..", "..", "/images/nytImage.png"), // Url or File path, both ok.
     content: [
       {
-        title: hydratedNl.displayName,
+        title: hydratedNl.title,
         data: hydratedNl.html,
       },
     ],

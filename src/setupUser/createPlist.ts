@@ -25,6 +25,7 @@ const createPlist = (): void => {
     WorkingDirectory: process.cwd(),
     ProgramArguments: [
       nodeExecutablePath,
+      "--no-deprecation",
       "lib/fetchNlContent/orchestrator.js",
     ],
   };

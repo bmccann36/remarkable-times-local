@@ -1,12 +1,12 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { HydratedNl } from '../commonModels/HydratedNewsletter';
+import log from '../logger';
 import deliverNlEbooks from './deliverNlEbooks';
 import generateEbook from './generateEbook';
 import getContent from './getContent';
-import reformatNlHtml from './reformatNlHtml';
-import log from '../logger';
 import recordHistoryAndFilterOldContent from './persistContentHistory';
+import reformatNlHtml from './reformatNlHtml';
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + '-' + today.getDate();
@@ -29,7 +29,7 @@ const orchestrator = async function () {
   const cleanedNlItemArray: HydratedNl[] = freshNlContentArray.map((item) => {
     return Object.assign(
       {
-        html: reformatNlHtml(item.html),
+        html: reformatNlHtml(item.html, item.title),
       },
       item
     );

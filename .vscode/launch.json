@@ -1,14 +1,14 @@
 {
   "configurations": [
     {
-      "name": "Lambda",
+      "name": "Current TS File",
       "type": "node",
       "request": "launch",
-      "runtimeArgs": ["--inspect", "--debug-port=9229"],
-      "program": "${workspaceFolder}/node_modules/serverless/bin/serverless",
-      "args": ["offline"],
-      "port": 9229,
-      "console": "integratedTerminal"
+      "args": ["${relativeFile}"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
     },
     {
       "name": "Launch Program",

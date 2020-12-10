@@ -25,7 +25,7 @@ const shouldColorize: boolean = process.env.LOG_COLORIZE == 'true' ? true : fals
 const log: Logger = new Logger(
   /* specify console overwrite sot we capture console.log by 3rd party libs */ {
     overwriteConsole: process.env.PIPE_CONSOLE_INTO_LOG_FILE ? shouldPipeLogs : true,
-    minLevel: <TLogLevelName>process.env.LOG_MIN_LEVEL,
+    minLevel: <TLogLevelName>process.env.LOG_MIN_LEVEL ? <TLogLevelName>process.env.LOG_MIN_LEVEL : 'info',
     colorizePrettyLogs: process.env.LOG_COLORIZE ? shouldColorize : false, // good for log files
   }
 );

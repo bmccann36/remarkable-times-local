@@ -14,7 +14,7 @@ const timeOfDay = today.getHours() < 12 ? 'morning' : 'evening';
 const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
 
 const orchestrator = async function () {
-  log.info('\n \n START PROCESS')
+  log.info('\n \n START PROCESS');
   // clear out old newsletter epubs
   log.info('removing previously generated ebooks');
   removeOldContent();
@@ -24,29 +24,35 @@ const orchestrator = async function () {
   const nlContentArray: HydratedNl[] = await getContent(timeOfDay);
 
   const freshNlContentArray = recordHistoryAndFilterOldContent(nlContentArray);
+  //? for short circuiting the content check
+  // const freshNlContentArray = nlContentArray;
 
   log.info('removing font formatting for e-pub optimization');
-  const cleanedNlItemArray: HydratedNl[] = freshNlContentArray.map((item) => {
-    return Object.assign(
-      {
-        html: reformatNlHtml(item.html, item.title),
-      },
-      item
+  const cleanedNlItemArray: HydratedNl[] = [];
+  for (let i = 0; i < freshNlContentArray.length; i++) {
+    const nlItem = freshNlContentArray[i];
+    const reformattedContent = await reformatNlHtml(nlItem.html, nlItem.title);
+    const cleanedItem: HydratedNl = await Object.assign(
+      /*target*/ nlItem, // html prop is overwritten
+      /*source*/ { html: reformattedContent }
     );
-  });
+    cleanedNlItemArray.push(cleanedItem);
+  }
 
   log.info('generating epub zipfiles');
   // create the ePubZip
   let numToDeliver = 0;
-  cleanedNlItemArray.forEach(async (nl: HydratedNl) => {
+  for (let i = 0; i < cleanedNlItemArray.length; i++) {
     numToDeliver++;
-    const zipFilePath = process.cwd() + '/generatedEBooks/' + dateStr + '_' + nl.title + '.epub';
-    await generateEbook(nl, zipFilePath);
-  });
+    const zipFilePath =
+      process.cwd() + '/generatedEBooks/' + dateStr + '_' + cleanedNlItemArray[i].title + '.epub';
+    log.info('[generating epub] ' + cleanedNlItemArray[i].title + '.epub');
+    await generateEbook(cleanedNlItemArray[i], zipFilePath);
+  }
 
   await sleep(2000); // good to pause so the filesystem has time to get caught up
 
-  log.info("delivering eBooks to remarkable cloud");
+  log.info('delivering eBooks to remarkable cloud');
 
   await deliverNlEbooks(numToDeliver);
 };

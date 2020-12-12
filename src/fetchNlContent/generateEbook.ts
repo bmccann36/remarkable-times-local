@@ -1,19 +1,16 @@
-import * as Epub from "epub-gen";
-import * as path from "path";
-import { HydratedNl } from "../commonModels/HydratedNewsletter";
+import * as Epub from 'epub-gen';
+import * as path from 'path';
+import { HydratedNl } from '../commonModels/HydratedNewsletter';
 
-const today = new Date();
-const dateStr = today.getMonth() + 1 + "-" + today.getDate();
-
-const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string) {
+const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string): Promise<void> {
   /**
    * create the ebook
    */
   const ebookOptions = {
     tempDir: process.env.TEMP_DIR_PATH,
     title: hydratedNl.title,
-    author: "The New York Times",
-    cover: path.join(__dirname, "..", "..", "/images/nytImage.png"), // Url or File path, both ok.
+    author: 'The New York Times',
+    cover: path.join(__dirname, '..', '..', '/images/nytImage.png'), // Url or File path, both ok.
     content: [
       {
         title: hydratedNl.title,
@@ -24,7 +21,7 @@ const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string) {
   /**
    * write the epub to file
    */
-  new Epub(ebookOptions, fullFilePath);
+  return new Epub(ebookOptions, fullFilePath).promise.then(() => null);
 };
 
 export default generateEbook;

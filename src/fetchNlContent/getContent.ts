@@ -23,7 +23,7 @@ const getContent = function (timeOfDay: string): Promise<HydratedNl[]> {
   const pendingPages = lettersToFetch.map((nlData) => {
     return axios.get(nlData.sampleUrl).then((res) => {
       //? for when we want to write to file for debugging
-      // writeFetchedNl(nlData, res);
+      writeFetchedNl(nlData, res);
       const hydrated: HydratedNl = Object.assign(
         {
           html: res.data,

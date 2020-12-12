@@ -9,7 +9,7 @@ export const newsletterMap: NewsletterMap = {
   },
   CORONA_BRIEFING: {
     newsletterId: "CB",
-    title: "Coronavrius Briefing",
+    title: "Coronavirus Briefing",
     sampleUrl: "https://static.nytimes.com/email-content/CB_sample.html",
     deliveryInfo: { timeOfDay: "morning", frequency: "weekdays" },
   },

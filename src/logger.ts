@@ -1,5 +1,4 @@
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config()
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';
 import * as path from 'path';

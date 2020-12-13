@@ -16,7 +16,6 @@ scratch.html
 stderr.log
 stderr.log
 
-.env
 logs/**
 tsconfig.tsbuildinfo
 nlHtml

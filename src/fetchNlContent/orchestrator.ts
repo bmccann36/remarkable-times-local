@@ -10,7 +10,6 @@ import reformatNlHtml from './reformatNlHtml';
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + '-' + today.getDate();
-const timeOfDay = today.getHours() < 12 ? 'morning' : 'evening';
 const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
 
 const orchestrator = async function () {
@@ -21,11 +20,17 @@ const orchestrator = async function () {
 
   // fetch newsletters as array of html text strings
   log.info('fetching newsletters');
-  const nlContentArray: HydratedNl[] = await getContent(timeOfDay);
+  const nlContentArray: HydratedNl[] = await getContent();
 
-  const freshNlContentArray = recordHistoryAndFilterOldContent(nlContentArray);
+  let freshNlContentArray: HydratedNl[] = [];
   //? for short circuiting the content check
-  // const freshNlContentArray = nlContentArray;
+  if (process.env.BYPASS_CONTENT_DEDUPE_CHECK == 'true') {
+    log.info('[bypass content check] will attempt to deliver all content regardless of history');
+    freshNlContentArray = nlContentArray;
+  } else {
+    log.info('[content check] checking hashes of previously delivered content');
+    freshNlContentArray = recordHistoryAndFilterOldContent(nlContentArray);
+  }
 
   log.info('removing font formatting for e-pub optimization');
   const cleanedNlItemArray: HydratedNl[] = [];
@@ -54,7 +59,7 @@ const orchestrator = async function () {
 
   log.info('delivering eBooks to remarkable cloud');
 
-  await deliverNlEbooks(numToDeliver);
+  // await deliverNlEbooks(numToDeliver);
 };
 
 //* START ORCHESTRATION

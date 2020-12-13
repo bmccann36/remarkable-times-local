@@ -34,6 +34,7 @@ function recordHistoryAndFilterOldContent(nlContentArray: HydratedNl[]): Hydrate
     const $ = cheerio.load(html);
     const emailContent = $('td[id="EMAIL_CONTAINER"]');
     const fetchedNlHash = getUuid(emailContent.html());
+
     // if key exists compare hashes
     if (contentHistoryTable[nlData.newsletterId]) {
       const prevContentHash = contentHistoryTable[nlData.newsletterId];

@@ -1,21 +1,18 @@
-import deliverNlEbooks from "../fetchNlContent/deliverNlEbooks";
+import deliverNlEbooks from '../fetchNlContent/deliverNlEbooks';
 export interface NewsletterData {
-  newsletterId: string,
+  newsletterId: string;
+  slug: string;
   title: string;
+  caption: string;
+  altText: string;
   sampleUrl: string;
-  deliveryInfo: DeliveryInfo; //TODO deprecate in favor of nyt format
-  caption?: string;
+  figureImageUrl: string;
+  titleImage: string;
+  altTextLogo?: string;
+  titleFont: string;
+  frequency: string;
+  thumbImageUrl: string;
+  id: string;
 }
 
-export interface DeliveryInfo {
-  timeOfDay: "morning" | "evening";
-  frequency: "weekdays" | "weekends" | "custom";
-}
-
-type NlNames =
-  | "MORNING_BRIEFING"
-  | "EVENING_BRIEFING"
-  | "CORONA_BRIEFING"
-  | "NYC_BRIEFING";
-
-export type NlMap = { [key in NlNames]: NewsletterData };
+export type NlMap = { [key: string]: NewsletterData };

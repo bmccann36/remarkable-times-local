@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "node --no-deprecation lib/fetchNlContent/orchestrator.js",
-    "build": "rm tsconfig.tsbuildinfo && rimraf lib && tsc"
+    "build": "rimraf lib && tsc",
+    "clean:build": "rm tsconfig.tsbuildinfo && rimraf lib && tsc"
   },
   "dependencies": {
     "axios": "^0.21.0",

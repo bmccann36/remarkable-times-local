@@ -2,13 +2,14 @@ require('dotenv').config()
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';
 import * as path from 'path';
+import * as fs from 'fs';
 
 /**
  * simple utility class for tslog to set internal buffer object
  * stole this from the docs https://tslog.js.org/#/?id=printprettylog
  */
 class SimpleStd implements IStd {
-  constructor(private _buffer: string = '') {}
+  constructor(private _buffer: string = '') { }
   write(message: string) {
     this._buffer += message;
   }
@@ -46,6 +47,12 @@ log.attachTransport(
  */
 const dateString = new Date().toISOString().split('T')[0];
 const logDir = path.join(__dirname, '..', 'logs');
+
+if (!fs.existsSync(logDir)) {
+  console.log("Directory does not exist.")
+  fs.mkdirSync(logDir);
+}
+
 const todayLogFileName = logDir + `/${dateString}.log`;
 
 function logToTransport(logObject: ILogObject) {

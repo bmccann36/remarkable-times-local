@@ -12,6 +12,11 @@ const today = new Date();
 const dateStr = today.getMonth() + 1 + '-' + today.getDate();
 const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
 
+if (!fs.existsSync(ebookDir)) {
+  console.log("Directory does not exist.")
+  fs.mkdirSync(ebookDir);
+}
+
 const orchestrator = async function () {
   log.info('\n \n START PROCESS');
   // clear out old newsletter epubs

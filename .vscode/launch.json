@@ -12,6 +12,16 @@
       "protocol": "inspector"
     },
     {
+      "name": "orchestrator",
+      "type": "node",
+      "request": "launch",
+      "args": ["./src/fetchNlContent/orchestrator.ts"],
+      "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+      "sourceMaps": true,
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector"
+    },
+    {
       "name": "Launch Program",
       "program": "${workspaceFolder}/asyncdemo.js",
       "request": "launch",

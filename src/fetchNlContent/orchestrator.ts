@@ -13,7 +13,7 @@ const dateStr = today.getMonth() + 1 + '-' + today.getDate();
 const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
 
 if (!fs.existsSync(ebookDir)) {
-  console.log("Directory does not exist.")
+  console.log('Directory does not exist.');
   fs.mkdirSync(ebookDir);
 }
 
@@ -64,7 +64,7 @@ const orchestrator = async function () {
 
   log.info('delivering eBooks to remarkable cloud');
 
-  // await deliverNlEbooks(numToDeliver);
+  await deliverNlEbooks(numToDeliver);
 };
 
 //* START ORCHESTRATION

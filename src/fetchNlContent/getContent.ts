@@ -14,7 +14,9 @@ const getContent = function (): Promise<HydratedNl[]> {
   const pendingPages = usersLetterListJson.map((nlData) => {
     return axios.get(nlData.sampleUrl).then((res) => {
       //? for when we want to write to file for debugging
-      writeFetchedNl(nlData, res);
+      if (process.env.WRITE_HTML_CONTENT == 'true') {
+        writeFetchedNl(nlData, res);
+      }
       const hydrated: HydratedNl = Object.assign(
         {
           html: res.data,
@@ -29,8 +31,13 @@ const getContent = function (): Promise<HydratedNl[]> {
 
 export default getContent;
 
+// for debugging purposes
 function writeFetchedNl(nlData: NewsletterData, res: AxiosResponse) {
   const fetchedDocPath = path.join(__dirname, '..', '..', '/fetchedPages');
-
+  // create directory if not exists
+  if (!fs.existsSync(fetchedDocPath)) {
+    log.debug(`directory doesn't exist creating ${fetchedDocPath}`);
+    fs.mkdirSync(fetchedDocPath);
+  }
   fs.writeFileSync(`${fetchedDocPath}/${nlData.title}.html`, res.data);
 }

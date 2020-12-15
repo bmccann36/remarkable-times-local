@@ -1,6 +1,7 @@
 import * as cheerio from 'cheerio';
 import * as fs from 'fs';
 import * as path from 'path';
+import log from '../logger';
 
 const reformatNlHtml = function (newsLetterHtml: string, title?: string) {
   // load data into cheerio parser
@@ -34,17 +35,25 @@ const reformatNlHtml = function (newsLetterHtml: string, title?: string) {
   });
 
   const emailContent = $('td[id="EMAIL_CONTAINER"]');
+
   //? for when you want to write to file
-  fs.writeFileSync(path.join(__dirname, '..', '..', `nlHtml/${title}.html`), emailContent.html());
+  if (process.env.WRITE_HTML_CONTENT == 'true') {
+    writeHtmlContent(emailContent);
+  }
+
   return emailContent.html();
 };
 
 export default reformatNlHtml;
 
-//? testing
-// const buffData = fs.readFileSync(path.join(__dirname, "..", "..", "fetchedPages/Morning Briefing.html"))
-// const morningBriefingString = buffData.toString();
-// reformatNlHtml(morningBriefingString)
+function writeHtmlContent(emailContent) {
+  const styleStrippedNlsPath = path.join(__dirname, '..', '..', `nlHtml`);
+  if (!fs.existsSync(styleStrippedNlsPath)) {
+    log.debug(`directory doesn't exist creating ${styleStrippedNlsPath}`);
+    fs.mkdirSync(styleStrippedNlsPath);
+  }
+  fs.writeFileSync(styleStrippedNlsPath + '/${title}.html', emailContent.html());
+}
 
 /**
  *

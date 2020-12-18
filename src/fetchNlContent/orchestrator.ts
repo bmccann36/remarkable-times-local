@@ -64,7 +64,7 @@ const orchestrator = async function () {
 
   log.info('delivering eBooks to remarkable cloud');
 
-  await deliverNlEbooks(numToDeliver);
+  // await deliverNlEbooks(numToDeliver);
 };
 
 //* START ORCHESTRATION

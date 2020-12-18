@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import log from '../logger';
 
+
 const reformatNlHtml = function (newsLetterHtml: string, title?: string) {
   // load data into cheerio parser
   const $ = cheerio.load(newsLetterHtml);
@@ -38,7 +39,7 @@ const reformatNlHtml = function (newsLetterHtml: string, title?: string) {
 
   //? for when you want to write to file
   if (process.env.WRITE_HTML_CONTENT == 'true') {
-    writeHtmlContent(emailContent);
+    writeHtmlContent(emailContent, title);
   }
 
   return emailContent.html();
@@ -46,13 +47,13 @@ const reformatNlHtml = function (newsLetterHtml: string, title?: string) {
 
 export default reformatNlHtml;
 
-function writeHtmlContent(emailContent) {
+function writeHtmlContent(emailContent: cheerio.Cheerio, title: string) {
   const styleStrippedNlsPath = path.join(__dirname, '..', '..', `nlHtml`);
   if (!fs.existsSync(styleStrippedNlsPath)) {
     log.debug(`directory doesn't exist creating ${styleStrippedNlsPath}`);
     fs.mkdirSync(styleStrippedNlsPath);
   }
-  fs.writeFileSync(styleStrippedNlsPath + '/${title}.html', emailContent.html());
+  fs.writeFileSync(styleStrippedNlsPath + `/${title}.html`, emailContent.html());
 }
 
 /**

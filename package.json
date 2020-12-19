@@ -12,6 +12,9 @@
     "clean:build": "rm tsconfig.tsbuildinfo && rimraf lib && tsc",
     "start:dev": "ts-node src/fetchNlContent/orchestrator.ts"
   },
+  "bin": {
+    "mybin": "lib/mybin.js"
+  },
   "dependencies": {
     "axios": "^0.21.0",
     "chalk": "^4.1.0",

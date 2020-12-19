@@ -1,7 +1,16 @@
-require('dotenv').config()
+import * as path from 'path';
+
+if (process.env.NODE_ENV == 'dev') {
+  console.log('USING DEV CONFIG');
+  require('dotenv').config({ path: path.join(__dirname, '..', 'dev.env') });
+  console.log(process.env.OOGA);
+} else {
+  require('dotenv').config();
+}
+
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';
-import * as path from 'path';
+
 import * as fs from 'fs';
 
 /**
@@ -9,7 +18,7 @@ import * as fs from 'fs';
  * stole this from the docs https://tslog.js.org/#/?id=printprettylog
  */
 class SimpleStd implements IStd {
-  constructor(private _buffer: string = '') { }
+  constructor(private _buffer: string = '') {}
   write(message: string) {
     this._buffer += message;
   }
@@ -19,28 +28,30 @@ class SimpleStd implements IStd {
 }
 
 // coerce string value into boolean
-const shouldPipeLogs: boolean = process.env.PIPE_CONSOLE_INTO_LOG_FILE == 'true' ? true : false;
+const shouldPipeLogs: boolean = process.env.LOG_OVERWRITE == 'true' ? true : false;
 const shouldColorize: boolean = process.env.LOG_COLORIZE == 'true' ? true : false;
 
 const log: Logger = new Logger(
-  /* specify console overwrite sot we capture console.log by 3rd party libs */ {
-    overwriteConsole: process.env.PIPE_CONSOLE_INTO_LOG_FILE ? shouldPipeLogs : true,
+  /* specify console overwrite so we capture console.log by 3rd party libs */ {
+    overwriteConsole: process.env.LOG_OVERWRITE ? shouldPipeLogs : true,
     minLevel: <TLogLevelName>process.env.LOG_MIN_LEVEL ? <TLogLevelName>process.env.LOG_MIN_LEVEL : 'info',
     colorizePrettyLogs: process.env.LOG_COLORIZE ? shouldColorize : false, // good for log files
   }
 );
-log.attachTransport(
-  {
-    silly: logToTransport,
-    debug: logToTransport,
-    trace: logToTransport,
-    info: logToTransport,
-    warn: logToTransport,
-    error: logToTransport,
-    fatal: logToTransport,
-  },
-  'debug'
-);
+if (process.env.LOG_ATTATCH_TRANSPORT == 'true') {
+  log.attachTransport(
+    {
+      silly: logToTransport,
+      debug: logToTransport,
+      trace: logToTransport,
+      info: logToTransport,
+      warn: logToTransport,
+      error: logToTransport,
+      fatal: logToTransport,
+    },
+    'debug'
+  );
+}
 
 /**
  * every day write logs to a new file to keep em separate
@@ -49,7 +60,7 @@ const dateString = new Date().toISOString().split('T')[0];
 const logDir = path.join(__dirname, '..', 'logs');
 
 if (!fs.existsSync(logDir)) {
-  console.log("Directory does not exist.")
+  console.log('Directory does not exist.');
   fs.mkdirSync(logDir);
 }
 

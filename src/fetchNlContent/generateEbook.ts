@@ -2,7 +2,7 @@ import * as Epub from 'epub-gen';
 import * as path from 'path';
 import { HydratedNl } from '../commonModels/HydratedNewsletter';
 
-const generateEbook = function (hydratedNl: HydratedNl, fullFilePath: string): Promise<void> {
+const generateEbook = async function (hydratedNl: HydratedNl, fullFilePath: string): Promise<void> {
   /**
    * create the ebook
    */

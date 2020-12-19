@@ -1,12 +1,13 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { HydratedNl } from '../commonModels/HydratedNewsletter';
-import log from '../logger';
-import deliverNlEbooks from './deliverNlEbooks';
-import generateEbook from './generateEbook';
-import getContent from './getContent';
-import recordHistoryAndFilterOldContent from './persistContentHistory';
-import reformatNlHtml from './reformatNlHtml';
+import { HydratedNl } from './commonModels/HydratedNewsletter';
+import deliverNlEbooks from './fetchNlContent/deliverNlEbooks';
+import generateEbook from './fetchNlContent/generateEbook';
+import getContent from './fetchNlContent/getContent';
+import recordHistoryAndFilterOldContent from './fetchNlContent/persistContentHistory';
+import reformatNlHtml from './fetchNlContent/reformatNlHtml';
+import log from './logger';
+import removeNls from './removeOldContent/removeNls';
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + '-' + today.getDate();
@@ -20,8 +21,10 @@ if (!fs.existsSync(ebookDir)) {
 const orchestrator = async function () {
   log.info('\n \n START PROCESS');
   // clear out old newsletter epubs
-  log.info('removing previously generated ebooks');
-  removeOldContent();
+  log.info('removing previously generated ebooks and old newsletters in cloud drive');
+  // we can remove the newsletters concurrently with everything else we do so no need to await completion
+  removeNls();
+  await removeOldContent();
 
   // fetch newsletters as array of html text strings
   log.info('fetching newsletters');
@@ -70,13 +73,14 @@ const orchestrator = async function () {
 //* START ORCHESTRATION
 orchestrator();
 
-function removeOldContent() {
+async function removeOldContent() {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {
     return nlName.includes('.epub');
   });
-  listOfNls.forEach((nlName: string) => {
+  const pendingUnlinks = listOfNls.map((nlName: string) => {
     fs.unlinkSync(path.join(ebookDir, nlName));
   });
+  return Promise.all(pendingUnlinks);
 }
 
 function sleep(ms) {

@@ -5,7 +5,7 @@
   "main": "lib/fetchNlContent/orchestrator.js",
   "scripts": {
     "test": "jest",
-    "start": "node --no-deprecation lib/fetchNlContent/orchestrator.js",
+    "start": "ts-node src/main.ts",
     "build": "rimraf lib && tsc",
     "clean:build": "rm tsconfig.tsbuildinfo && rimraf lib && tsc",
     "start:dev": "ts-node src/fetchNlContent/orchestrator.ts"

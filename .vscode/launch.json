@@ -15,7 +15,7 @@
       "name": "orchestrator",
       "type": "node",
       "request": "launch",
-      "args": ["./src/fetchNlContent/orchestrator.ts"],
+      "args": ["./src/main.ts"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",

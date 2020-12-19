@@ -13,7 +13,7 @@ const userDataDir = path.join(process.cwd(), 'userData');
 const oldTokenExists = checkForExistingToken();
 const client = new Remarkable();
 
-(async () => {
+export async function setupUser() {
   printBanner();
   //? CONFIGURE DEVICE TOKEN IF NOT ALREADY STORED
   const pairDevicePrompts = await prompts([
@@ -47,7 +47,8 @@ const client = new Remarkable();
     {
       type: 'multiselect',
       name: 'selected-newsletters',
-      message: 'select the newsletters you would like to recieve, \n you can review samples here \u001b[34mhttps://www.nytimes.com/newsletters',
+      message:
+        'select the newsletters you would like to recieve, \n you can review samples here \u001b[34mhttps://www.nytimes.com/newsletters',
       choices: getNlDataArray(),
     },
   ]);
@@ -63,7 +64,7 @@ const client = new Remarkable();
       'your preferences have been saved \nthe newsletters you signed up for will be delivered to your remarkable every day'
     )
   );
-})();
+}
 
 async function createRemarkableDirectory() {
   const deviceToken = fs

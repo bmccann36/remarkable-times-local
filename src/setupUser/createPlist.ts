@@ -26,7 +26,7 @@ const createPlist = (): void => {
     ProgramArguments: [
       nodeExecutablePath,
       "--no-deprecation",
-      "lib/fetchNlContent/orchestrator.js",
+      "lib/main.js",
     ],
   };
 

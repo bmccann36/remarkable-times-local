@@ -1,8 +1,10 @@
 {
-  "name": "remarkable-times-local",
+  "name": "remarkable-times",
   "version": "1.0.1",
-  "description": "",
-  "main": "lib/fetchNlContent/orchestrator.js",
+  "description": "this package sets up a background process whereby NYT newsletters are automatically delivered to your remarkable tablet",
+  "main": "lib/main.js",
+  "author": "https://github.com/bmccann36",
+  "license": "MIT",
   "scripts": {
     "test": "jest",
     "start": "ts-node src/main.ts",
@@ -43,7 +45,5 @@
     "ts-loader": "^5.3.3",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
-  },
-  "author": "",
-  "license": "MIT"
+  }
 }

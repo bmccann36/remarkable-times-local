@@ -1,6 +1,6 @@
 {
   "name": "remarkable-times",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "this package sets up a background process whereby NYT newsletters are automatically delivered to your remarkable tablet",
   "main": "lib/main.js",
   "author": "https://github.com/bmccann36",
@@ -13,7 +13,7 @@
     "start:dev": "ts-node src/fetchNlContent/orchestrator.ts"
   },
   "bin": {
-    "mybin": "index.js"
+    "rmt": "lib/index.js"
   },
   "dependencies": {
     "axios": "^0.21.0",

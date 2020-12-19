@@ -1,7 +1,6 @@
 import * as Epub from 'epub-gen';
 import * as path from 'path';
 import { HydratedNl } from '../commonModels/HydratedNewsletter';
-import log from '../logger';
 
 const generateEbook = async function (hydratedNl: HydratedNl, fullFilePath: string): Promise<void> {
   /**

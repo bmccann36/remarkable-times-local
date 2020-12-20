@@ -11,11 +11,10 @@ import createPlist from './createPlist';
 import { filteredNls } from './filterNewsletters';
 
 let oldTokenExists = false;
-let userDataDir;
+const userDataDir = path.join(__dirname, '..', '..', 'userData');
 const client = new Remarkable();
 
 export async function setupUser() {
-  userDataDir = path.join(process.cwd(), 'userData');
   oldTokenExists = checkForExistingToken(userDataDir);
 
   printBanner();
@@ -70,15 +69,13 @@ export async function setupUser() {
   );
 }
 
-async function createRemarkableDirectory() {
-  const deviceToken = fs
-    .readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt'))
-    .toString();
+export async function createRemarkableDirectory() {
+  const deviceToken = fs.readFileSync(`${userDataDir}/deviceToken.txt`).toString();
   const client = new Remarkable({ deviceToken });
   await client.refreshToken();
   const rtFolder: ItemResponse = await client.getItemWithId(getUuid('Remarkable Times'));
   if (rtFolder.Success) {
-    console.log(chalk.yellow('Remarkable Times folder already exists, skipping creation'));
+    console.log(chalk.yellow('Remarkable Times folder already exists on your Remarkable device, skipping creation'));
   } else {
     console.log(chalk.yellow('no Remarkable Times folder exists, will create'));
     const dirCreateRes = await client.createDirectory('Remarkable Times', getUuid('Remarkable Times'));
@@ -110,11 +107,11 @@ function setupTokenGeneration(prev, values) {
   - Once you have copied the code hit enter or type "y" to continue`;
 }
 async function getAndSaveToken(code: string) {
-  console.log(chalk.green('using code to register remarkable-times with your device...'));
+  console.log(chalk.green('using code to register remarkable-times with your device. This will take a few seconds....'));
 
   const deviceToken = await client.register({ code: code });
   // ? write token to userData directory
-  fs.writeFileSync('./userData/deviceToken.txt', deviceToken);
+  fs.writeFileSync(`${userDataDir}/deviceToken.txt`, deviceToken);
 }
 function getNlDataArray() {
   //? display the list of possible newsletters a user can get

@@ -1,12 +1,6 @@
 import * as path from 'path';
 
-if (process.env.NODE_ENV == 'dev') {
-  console.log('USING DEV CONFIG');
-  require('dotenv').config({ path: path.join(__dirname, '..', 'dev.env') });
-  console.log(process.env.OOGA);
-} else {
-  require('dotenv').config();
-}
+
 
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';

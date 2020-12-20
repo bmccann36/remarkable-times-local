@@ -18,7 +18,7 @@ if (!fs.existsSync(ebookDir)) {
   fs.mkdirSync(ebookDir);
 }
 
-const orchestrator = async function () {
+export const orchestrator = async function () {
   log.info('\n \n START PROCESS');
   // clear out old newsletter epubs
   log.info('removing previously generated ebooks and old newsletters in cloud drive');
@@ -67,11 +67,8 @@ const orchestrator = async function () {
 
   log.info('delivering eBooks to remarkable cloud');
 
-  // await deliverNlEbooks(numToDeliver);
+  await deliverNlEbooks(numToDeliver);
 };
-
-//* START ORCHESTRATION
-orchestrator();
 
 async function removeOldContent() {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {

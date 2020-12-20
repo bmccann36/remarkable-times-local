@@ -61,9 +61,8 @@ export async function setupUser() {
       choices: getNlDataArray(),
     },
   ]);
-  // console.log("promptSection2 :>> ", setPreferencesPrompts);
   const preferenceAsJson = JSON.stringify(setPreferencesPrompts['selected-newsletters'], null, 2);
-  fs.writeFileSync('./userData/nlPreferences.json', preferenceAsJson);
+  fs.writeFileSync(`${userDataDir}/nlPreferences.json`, preferenceAsJson);
   console.log(chalk.green('setting up a service on your machine to deliver newsletters'));
   await createRemarkableDirectory();
   // sets up a daemon process on user's machine
@@ -75,7 +74,7 @@ export async function setupUser() {
   );
 }
 
-export async function createRemarkableDirectory() {
+export async function createRemarkableDirectory(): Promise<void> {
   const deviceToken = fs.readFileSync(`${userDataDir}/deviceToken.txt`).toString();
   const client = new Remarkable({ deviceToken });
   await client.refreshToken();

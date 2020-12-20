@@ -4,10 +4,17 @@ import axios, { AxiosResponse } from 'axios';
 import { NewsletterData } from '../commonModels/NewsletterData';
 import { HydratedNl } from '../commonModels/HydratedNewsletter';
 import log from '../logger';
+import * as chalk from 'chalk';
 
-const usersLetterListString = fs
-  .readFileSync(path.join(__dirname, '..', '..', '/userData/nlPreferences.json'))
-  .toString();
+let usersLetterListString = '[]';
+try {
+  usersLetterListString = fs
+    .readFileSync(path.join(__dirname, '..', '..', '/userData/nlPreferences.json'))
+    .toString();
+} catch (err) {
+  log.info('failed to load newsletter preferences, newsletter list will be empty');
+}
+
 const usersLetterListJson = <NewsletterData[]>JSON.parse(usersLetterListString);
 
 const getContent = function (): Promise<HydratedNl[]> {

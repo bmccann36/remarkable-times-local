@@ -1,7 +1,5 @@
 import * as path from 'path';
 
-
-
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';
 
@@ -54,7 +52,7 @@ const dateString = new Date().toISOString().split('T')[0];
 const logDir = path.join(__dirname, '..', 'logs');
 
 if (!fs.existsSync(logDir)) {
-  console.log('Directory does not exist.');
+  console.log('logfile directory does not exist creating at', logDir);
   fs.mkdirSync(logDir);
 }
 

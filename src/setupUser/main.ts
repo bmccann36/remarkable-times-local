@@ -15,6 +15,12 @@ const userDataDir = path.join(__dirname, '..', '..', 'userData');
 const client = new Remarkable();
 
 export async function setupUser() {
+  // setup userData directory if it does not exist
+  if (!fs.existsSync(userDataDir)) {
+    console.log('userDataDir does not exist. will create at: ', userDataDir);
+    fs.mkdirSync(userDataDir);
+  }
+
   oldTokenExists = checkForExistingToken(userDataDir);
 
   printBanner();
@@ -75,7 +81,9 @@ export async function createRemarkableDirectory() {
   await client.refreshToken();
   const rtFolder: ItemResponse = await client.getItemWithId(getUuid('Remarkable Times'));
   if (rtFolder.Success) {
-    console.log(chalk.yellow('Remarkable Times folder already exists on your Remarkable device, skipping creation'));
+    console.log(
+      chalk.yellow('Remarkable Times folder already exists on your Remarkable device, skipping creation')
+    );
   } else {
     console.log(chalk.yellow('no Remarkable Times folder exists, will create'));
     const dirCreateRes = await client.createDirectory('Remarkable Times', getUuid('Remarkable Times'));
@@ -107,7 +115,9 @@ function setupTokenGeneration(prev, values) {
   - Once you have copied the code hit enter or type "y" to continue`;
 }
 async function getAndSaveToken(code: string) {
-  console.log(chalk.green('using code to register remarkable-times with your device. This will take a few seconds....'));
+  console.log(
+    chalk.green('using code to register remarkable-times with your device. This will take a few seconds....')
+  );
 
   const deviceToken = await client.register({ code: code });
   // ? write token to userData directory

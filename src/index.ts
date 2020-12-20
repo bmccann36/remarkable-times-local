@@ -12,12 +12,7 @@ if (process.env.NODE_ENV == 'dev') {
 }
 import * as chalk from 'chalk';
 import { setupUser } from './setupUser/main';
-let orchestrator;
-try {
-  /*eslint-disable*/ orchestrator = require('./main').orchestrator; /*eslint-enable*/
-} catch (err) {
-  console.log('orchestrator not imported');
-}
+
 import * as fs from 'fs';
 
 const pkgFile = fs.readFileSync(path.join(__dirname, '..', 'package.json')).toString();
@@ -35,8 +30,6 @@ if (action == '-v' || action == '--version') {
   action = 'version';
 }
 
-setupFolderIfNotExists()
-
 switch (action) {
   case 'setup':
     setupUser();
@@ -45,6 +38,13 @@ switch (action) {
     console.log(pkgContents.version);
     break;
   case 'run':
+    // eslint-disable-next-line no-case-declarations
+    let orchestrator;
+    try {
+      /*eslint-disable*/ orchestrator = require('./main').orchestrator; /*eslint-enable*/
+    } catch (err) {
+      console.error('orchestrator not imported');
+    }
     if (!orchestrator) {
       console.error(
         chalk.red(
@@ -63,12 +63,4 @@ switch (action) {
         )}`
       )
     );
-}
-
-function setupFolderIfNotExists() {
-  const userDataDir = path.join(process.cwd(), 'userData');
-  if (!fs.existsSync(userDataDir)) {
-    console.log('userDataDir does not exist. will create at: ', userDataDir);
-    fs.mkdirSync(userDataDir);
-  }
 }

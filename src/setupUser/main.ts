@@ -6,14 +6,18 @@ import * as prompts from 'prompts';
 import { ItemResponse, Remarkable } from 'remarkable-typescript';
 import * as getUuid from 'uuid-by-string';
 import { NewsletterData } from '../commonModels/NewsletterData';
+import log from '../logger';
 import createPlist from './createPlist';
 import { filteredNls } from './filterNewsletters';
 
-const userDataDir = path.join(process.cwd(), 'userData');
-const oldTokenExists = checkForExistingToken();
+let oldTokenExists = false;
+let userDataDir;
 const client = new Remarkable();
 
 export async function setupUser() {
+  userDataDir = path.join(process.cwd(), 'userData');
+  oldTokenExists = checkForExistingToken(userDataDir);
+
   printBanner();
   //? CONFIGURE DEVICE TOKEN IF NOT ALREADY STORED
   const pairDevicePrompts = await prompts([
@@ -82,7 +86,7 @@ async function createRemarkableDirectory() {
   }
 }
 
-function checkForExistingToken() {
+function checkForExistingToken(userDataDir: string) {
   let tokenExists = false;
   try {
     const tokenFileData = fs.statSync(userDataDir + '/deviceToken.txt');
@@ -91,6 +95,10 @@ function checkForExistingToken() {
     }
   } catch (ex) {
     console.log(chalk.green('no token detected, will prompt to create a new device token'));
+    if (!fs.existsSync(userDataDir)) {
+      log.info('userDataDir does not exist. will create at: ', userDataDir);
+      fs.mkdirSync(userDataDir);
+    }
   }
   return tokenExists;
 }

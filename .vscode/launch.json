@@ -12,10 +12,10 @@
       "protocol": "inspector"
     },
     {
-      "name": "orchestrator",
+      "name": "deubg setup script",
       "type": "node",
       "request": "launch",
-      "args": ["./src/main.ts"],
+      "args": ["./src/index.ts", "setup"],
       "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
       "sourceMaps": true,
       "cwd": "${workspaceRoot}",

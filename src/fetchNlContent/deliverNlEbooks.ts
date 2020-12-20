@@ -4,10 +4,12 @@ import { Remarkable } from 'remarkable-typescript';
 import * as getUuid from 'uuid-by-string';
 import log from '../logger';
 
-const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
-const deviceToken = fs.readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt')).toString();
-
 const deliverNlEbooks = async function (numToDeliver: number) {
+  const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
+  const deviceToken = fs
+    .readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt'))
+    .toString();
+
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {
     return nlName.includes('.epub');
   });

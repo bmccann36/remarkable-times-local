@@ -30,7 +30,7 @@ const log: Logger = new Logger(
     colorizePrettyLogs: process.env.LOG_COLORIZE ? shouldColorize : false, // good for log files
   }
 );
-if (process.env.LOG_ATTATCH_TRANSPORT == 'true') {
+if (process.env.LOG_ATTACH_TRANSPORT == 'true') {
   log.attachTransport(
     {
       silly: logToTransport,

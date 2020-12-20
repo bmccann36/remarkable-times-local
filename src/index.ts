@@ -35,34 +35,40 @@ if (action == '-v' || action == '--version') {
   action = 'version';
 }
 
-invokeAction().then((res) => null);
+setupFolderIfNotExists()
 
-async function invokeAction() {
-  switch (action) {
-    case 'setup':
-      await setupUser();
-      break;
-    case 'version':
-      console.log(pkgContents.version);
-      break;
-    case 'run':
-      if (!orchestrator) {
-        console.error(
-          chalk.red(
-            'there was a configuration error, ensure that you have run "setup" first before attempting "run"'
-          )
-        );
-        process.exit(1);
-      }
-      orchestrator();
-      break;
-    default:
-      console.warn(
+switch (action) {
+  case 'setup':
+    setupUser();
+    break;
+  case 'version':
+    console.log(pkgContents.version);
+    break;
+  case 'run':
+    if (!orchestrator) {
+      console.error(
         chalk.red(
-          `the argument you passed "${action}" is not recognized, available actions are ${Object.keys(
-            AllowedCliArgs
-          )}`
+          'there was a configuration error, ensure that you have run "setup" first before attempting "run"'
         )
       );
+      process.exit(1);
+    }
+    orchestrator();
+    break;
+  default:
+    console.warn(
+      chalk.red(
+        `the argument you passed "${action}" is not recognized, available actions are ${Object.keys(
+          AllowedCliArgs
+        )}`
+      )
+    );
+}
+
+function setupFolderIfNotExists() {
+  const userDataDir = path.join(process.cwd(), 'userData');
+  if (!fs.existsSync(userDataDir)) {
+    console.log('userDataDir does not exist. will create at: ', userDataDir);
+    fs.mkdirSync(userDataDir);
   }
 }

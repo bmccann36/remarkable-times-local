@@ -95,10 +95,6 @@ function checkForExistingToken(userDataDir: string) {
     }
   } catch (ex) {
     console.log(chalk.green('no token detected, will prompt to create a new device token'));
-    if (!fs.existsSync(userDataDir)) {
-      log.info('userDataDir does not exist. will create at: ', userDataDir);
-      fs.mkdirSync(userDataDir);
-    }
   }
   return tokenExists;
 }

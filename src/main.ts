@@ -57,8 +57,7 @@ export const orchestrator = async function () {
   let numToDeliver = 0;
   for (let i = 0; i < cleanedNlItemArray.length; i++) {
     numToDeliver++;
-    const zipFilePath =
-      process.cwd() + '/generatedEBooks/' + dateStr + '_' + cleanedNlItemArray[i].title + '.epub';
+    const zipFilePath = ebookDir + dateStr + '_' + cleanedNlItemArray[i].title + '.epub';
     log.info('[generating epub] ' + cleanedNlItemArray[i].title + '.epub');
     await generateEbook(cleanedNlItemArray[i], zipFilePath);
   }

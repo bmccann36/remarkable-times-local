@@ -14,7 +14,7 @@ let oldTokenExists = false;
 const userDataDir = path.join(__dirname, '..', '..', 'userData');
 const client = new Remarkable();
 
-export async function setupUser() {
+export async function setupUser(): Promise<void> {
   // setup userData directory if it does not exist
   if (!fs.existsSync(userDataDir)) {
     console.log('userDataDir does not exist. will create at: ', userDataDir);

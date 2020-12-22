@@ -17,14 +17,15 @@ if (process.argv[2] == 'exec') {
 export default createPlist;
 
 function createPlist(): void {
-  const indexFilePath = path.join(__dirname, "..", 'index.js');
-
+  const indexFilePath = path.join(__dirname, '..', 'index.js');
   const nodeExecutablePath = process.execPath;
+  const rootModulePath = path.join(__dirname, '..', '..');
+
   const plistData = {
     Label: "com.rt-local.daemon.plist",
     // RunAtLoad: true,
-    StandardErrorPath: process.cwd() + "/logs/stderr.log",
-    StandardOutPath: process.cwd() + "/logs/stdout.log",
+    StandardErrorPath: rootModulePath + "/logs/stderr.log",
+    StandardOutPath: rootModulePath + "/logs/stdout.log",
     StartCalendarInterval: getCalendarInterval(),
     EnvironmentVariables: {
       PATH:

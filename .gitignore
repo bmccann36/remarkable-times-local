@@ -19,3 +19,4 @@ stderr.log
 logs/**
 tsconfig.tsbuildinfo
 nlHtml
+scratch.sh

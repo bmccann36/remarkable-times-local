@@ -11,14 +11,14 @@ import removeNls from './removeOldContent/removeNls';
 
 const today = new Date();
 const dateStr = today.getMonth() + 1 + '-' + today.getDate();
-const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
+const ebookDir = path.join(__dirname, '..', '/generatedEBooks');
 
 if (!fs.existsSync(ebookDir)) {
   console.log('Directory does not exist.');
   fs.mkdirSync(ebookDir);
 }
 
-const orchestrator = async function () {
+export const orchestrator = async function () {
   log.info('\n \n START PROCESS');
   // clear out old newsletter epubs
   log.info('removing previously generated ebooks and old newsletters in cloud drive');
@@ -57,8 +57,7 @@ const orchestrator = async function () {
   let numToDeliver = 0;
   for (let i = 0; i < cleanedNlItemArray.length; i++) {
     numToDeliver++;
-    const zipFilePath =
-      process.cwd() + '/generatedEBooks/' + dateStr + '_' + cleanedNlItemArray[i].title + '.epub';
+    const zipFilePath = `${ebookDir}/${dateStr}_${cleanedNlItemArray[i].title}.epub`;
     log.info('[generating epub] ' + cleanedNlItemArray[i].title + '.epub');
     await generateEbook(cleanedNlItemArray[i], zipFilePath);
   }
@@ -67,11 +66,8 @@ const orchestrator = async function () {
 
   log.info('delivering eBooks to remarkable cloud');
 
-  // await deliverNlEbooks(numToDeliver);
+  await deliverNlEbooks(numToDeliver);
 };
-
-//* START ORCHESTRATION
-orchestrator();
 
 async function removeOldContent() {
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {

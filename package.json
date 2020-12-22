@@ -1,16 +1,17 @@
 {
   "name": "remarkable-times",
-  "version": "1.0.12",
+  "version": "1.0.31",
   "description": "this package sets up a background process whereby NYT newsletters are automatically delivered to your remarkable tablet",
   "main": "lib/main.js",
-  "author": "https://github.com/bmccann36",
+  "repository": {
+    "url": "https://github.com/bmccann36/remarkable-times-local"
+  },
+  "author": "bmccann36@gmail.com",
   "license": "MIT",
   "scripts": {
     "test": "jest",
-    "start": "ts-node src/main.ts",
-    "build": "rimraf lib && tsc",
-    "clean:build": "rm tsconfig.tsbuildinfo && rimraf lib && tsc",
-    "start:dev": "ts-node src/fetchNlContent/orchestrator.ts"
+    "start": "ts-node src/index.ts run",
+    "build": "rimraf lib && tsc"
   },
   "bin": {
     "rmt": "lib/index.js"

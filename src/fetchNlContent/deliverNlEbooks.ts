@@ -4,10 +4,15 @@ import { Remarkable } from 'remarkable-typescript';
 import * as getUuid from 'uuid-by-string';
 import log from '../logger';
 
-const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
-const deviceToken = fs.readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt')).toString();
+const deliverNlEbooks = async function (numToDeliver: number): Promise<void> {
 
-const deliverNlEbooks = async function (numToDeliver: number) {
+  const RMT_CLOUD_FOLDER_NAME = process.env.RMT_CLOUD_FOLDER_NAME ? process.env.RMT_CLOUD_FOLDER_NAME : 'Remarkable Times';
+
+  const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
+  const deviceToken = fs
+    .readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt'))
+    .toString();
+
   const listOfNls = fs.readdirSync(ebookDir).filter((nlName) => {
     return nlName.includes('.epub');
   });
@@ -21,15 +26,15 @@ const deliverNlEbooks = async function (numToDeliver: number) {
     const nlName = listOfNls[i];
     const epubFileBuffer = fs.readFileSync(ebookDir + '/' + nlName);
     try {
-      const uploadRes = await client.uploadEPUB(
+      await client.uploadEPUB(
         nlName,
-        getUuid(nlName),
+        getUuid(RMT_CLOUD_FOLDER_NAME + nlName),
         epubFileBuffer,
-        getUuid('Remarkable Times')
+        getUuid(RMT_CLOUD_FOLDER_NAME)
       );
       numDelivered++;
     } catch (err) {
-      log.error(err);
+      log.error(err); // TODO this never catches (probably due to issue with epub lib)
     }
   }
   // send a warning if less were delivered than intended

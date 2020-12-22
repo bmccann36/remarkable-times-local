@@ -6,14 +6,23 @@ import * as prompts from 'prompts';
 import { ItemResponse, Remarkable } from 'remarkable-typescript';
 import * as getUuid from 'uuid-by-string';
 import { NewsletterData } from '../commonModels/NewsletterData';
+import log from '../logger';
 import createPlist from './createPlist';
 import { filteredNls } from './filterNewsletters';
 
-const userDataDir = path.join(process.cwd(), 'userData');
-const oldTokenExists = checkForExistingToken();
+let oldTokenExists = false;
+const userDataDir = path.join(__dirname, '..', '..', 'userData');
 const client = new Remarkable();
 
-export async function setupUser() {
+export async function setupUser(): Promise<void> {
+  // setup userData directory if it does not exist
+  if (!fs.existsSync(userDataDir)) {
+    console.log('userDataDir does not exist. will create at: ', userDataDir);
+    fs.mkdirSync(userDataDir);
+  }
+
+  oldTokenExists = checkForExistingToken(userDataDir);
+
   printBanner();
   //? CONFIGURE DEVICE TOKEN IF NOT ALREADY STORED
   const pairDevicePrompts = await prompts([
@@ -52,9 +61,8 @@ export async function setupUser() {
       choices: getNlDataArray(),
     },
   ]);
-  // console.log("promptSection2 :>> ", setPreferencesPrompts);
   const preferenceAsJson = JSON.stringify(setPreferencesPrompts['selected-newsletters'], null, 2);
-  fs.writeFileSync('./userData/nlPreferences.json', preferenceAsJson);
+  fs.writeFileSync(`${userDataDir}/nlPreferences.json`, preferenceAsJson);
   console.log(chalk.green('setting up a service on your machine to deliver newsletters'));
   await createRemarkableDirectory();
   // sets up a daemon process on user's machine
@@ -66,15 +74,15 @@ export async function setupUser() {
   );
 }
 
-async function createRemarkableDirectory() {
-  const deviceToken = fs
-    .readFileSync(path.join(__dirname, '..', '..', '/userData/deviceToken.txt'))
-    .toString();
+export async function createRemarkableDirectory(): Promise<void> {
+  const deviceToken = fs.readFileSync(`${userDataDir}/deviceToken.txt`).toString();
   const client = new Remarkable({ deviceToken });
   await client.refreshToken();
   const rtFolder: ItemResponse = await client.getItemWithId(getUuid('Remarkable Times'));
   if (rtFolder.Success) {
-    console.log(chalk.yellow('Remarkable Times folder already exists, skipping creation'));
+    console.log(
+      chalk.yellow('Remarkable Times folder already exists on your Remarkable device, skipping creation')
+    );
   } else {
     console.log(chalk.yellow('no Remarkable Times folder exists, will create'));
     const dirCreateRes = await client.createDirectory('Remarkable Times', getUuid('Remarkable Times'));
@@ -82,7 +90,7 @@ async function createRemarkableDirectory() {
   }
 }
 
-function checkForExistingToken() {
+function checkForExistingToken(userDataDir: string) {
   let tokenExists = false;
   try {
     const tokenFileData = fs.statSync(userDataDir + '/deviceToken.txt');
@@ -106,11 +114,13 @@ function setupTokenGeneration(prev, values) {
   - Once you have copied the code hit enter or type "y" to continue`;
 }
 async function getAndSaveToken(code: string) {
-  console.log(chalk.green('using code to register remarkable-times with your device...'));
+  console.log(
+    chalk.green('using code to register remarkable-times with your device. This will take a few seconds....')
+  );
 
   const deviceToken = await client.register({ code: code });
   // ? write token to userData directory
-  fs.writeFileSync('./userData/deviceToken.txt', deviceToken);
+  fs.writeFileSync(`${userDataDir}/deviceToken.txt`, deviceToken);
 }
 function getNlDataArray() {
   //? display the list of possible newsletters a user can get

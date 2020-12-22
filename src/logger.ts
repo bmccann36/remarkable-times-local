@@ -1,13 +1,5 @@
 import * as path from 'path';
 
-if (process.env.NODE_ENV == 'dev') {
-  console.log('USING DEV CONFIG');
-  require('dotenv').config({ path: path.join(__dirname, '..', 'dev.env') });
-  console.log(process.env.OOGA);
-} else {
-  require('dotenv').config();
-}
-
 import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 import { appendFileSync } from 'fs';
 
@@ -38,7 +30,7 @@ const log: Logger = new Logger(
     colorizePrettyLogs: process.env.LOG_COLORIZE ? shouldColorize : false, // good for log files
   }
 );
-if (process.env.LOG_ATTATCH_TRANSPORT == 'true') {
+if (process.env.LOG_ATTACH_TRANSPORT == 'true') {
   log.attachTransport(
     {
       silly: logToTransport,
@@ -60,7 +52,7 @@ const dateString = new Date().toISOString().split('T')[0];
 const logDir = path.join(__dirname, '..', 'logs');
 
 if (!fs.existsSync(logDir)) {
-  console.log('Directory does not exist.');
+  console.log('logfile directory does not exist creating at', logDir);
   fs.mkdirSync(logDir);
 }
 

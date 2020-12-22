@@ -2,14 +2,14 @@ import * as fs from "fs";
 import * as plist from "plist";
 import * as os from "os";
 import * as shelljs from "shelljs";
-
+import * as path from 'path';
 //? WRITE PLIST
 /**
  * this script customizes a daemon.plist file which defines a daemon service to run at intervals on Mac OS
  * background on how this works here https://medium.com/better-programming/schedule-node-js-scripts-on-your-mac-with-launchd-a7fca82fbf02
  */
 
- // makes it easy to run this file as a script if needed
+// makes it easy to run this file as a script if needed
 if (process.argv[2] == 'exec') {
   console.log("re-writing plist file");
   createPlist()
@@ -17,8 +17,9 @@ if (process.argv[2] == 'exec') {
 export default createPlist;
 
 function createPlist(): void {
-  const nodeExecutablePath = process.execPath;
+  const indexFilePath = path.join(__dirname, "..", 'index.js');
 
+  const nodeExecutablePath = process.execPath;
   const plistData = {
     Label: "com.rt-local.daemon.plist",
     // RunAtLoad: true,
@@ -33,7 +34,7 @@ function createPlist(): void {
     ProgramArguments: [
       nodeExecutablePath,
       "--no-deprecation",
-      "lib/index.js",
+      indexFilePath,
       "run"
     ],
   };

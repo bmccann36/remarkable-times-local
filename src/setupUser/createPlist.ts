@@ -9,7 +9,14 @@ import * as shelljs from "shelljs";
  * background on how this works here https://medium.com/better-programming/schedule-node-js-scripts-on-your-mac-with-launchd-a7fca82fbf02
  */
 
-const createPlist = (): void => {
+ // makes it easy to run this file as a script if needed
+if (process.argv[2] == 'exec') {
+  console.log("re-writing plist file");
+  createPlist()
+}
+export default createPlist;
+
+function createPlist(): void {
   const nodeExecutablePath = process.execPath;
 
   const plistData = {
@@ -26,7 +33,8 @@ const createPlist = (): void => {
     ProgramArguments: [
       nodeExecutablePath,
       "--no-deprecation",
-      "lib/main.js",
+      "lib/index.js",
+      "run"
     ],
   };
 
@@ -42,9 +50,9 @@ const createPlist = (): void => {
   shelljs.exec(`launchctl unload ${plistFilePath}`, { silent: true });
   // load the latest service definition
   shelljs.exec(`launchctl load ${plistFilePath}`);
-};
+}
 
-export default createPlist;
+
 
 function getCalendarInterval() {
   return [

@@ -7,8 +7,8 @@ if (process.env.NODE_ENV == 'dev') {
   console.log('USING DEV CONFIG');
   dotenv.config({ path: path.join(__dirname, '..', 'dev.env') });
 } else {
-  // since user is manually invoking this from cli we want slightly different behavior
-  dotenv.config();
+  // typically .env would find this path on its own but not true when run as global node module
+  dotenv.config({ path: path.join(__dirname, '..', '.env') });
 }
 import * as chalk from 'chalk';
 import { setupUser } from './setupUser/main';

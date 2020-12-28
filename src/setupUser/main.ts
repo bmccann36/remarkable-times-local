@@ -6,9 +6,8 @@ import * as prompts from 'prompts';
 import { ItemResponse, Remarkable } from 'remarkable-typescript';
 import * as getUuid from 'uuid-by-string';
 import { NewsletterData } from '../commonModels/NewsletterData';
-import log from '../logger';
-import createPlist from './createPlist';
 import { filteredNls } from './filterNewsletters';
+import scheduleService from './scheduleService';
 
 let oldTokenExists = false;
 const userDataDir = path.join(__dirname, '..', '..', 'userData');
@@ -22,7 +21,6 @@ export async function setupUser(): Promise<void> {
   }
 
   oldTokenExists = checkForExistingToken(userDataDir);
-
   printBanner();
   //? CONFIGURE DEVICE TOKEN IF NOT ALREADY STORED
   const pairDevicePrompts = await prompts([
@@ -66,7 +64,7 @@ export async function setupUser(): Promise<void> {
   console.log(chalk.green('setting up a service on your machine to deliver newsletters'));
   await createRemarkableDirectory();
   // sets up a daemon process on user's machine
-  createPlist();
+  scheduleService();
   console.log(
     chalk.green(
       'your preferences have been saved \nthe newsletters you signed up for will be delivered to your remarkable every day'

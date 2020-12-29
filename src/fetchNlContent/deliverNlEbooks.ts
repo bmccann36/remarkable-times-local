@@ -27,6 +27,8 @@ const deliverNlEbooks = async function (numToDeliver: number): Promise<void> {
   for (let i = 0; i < listOfNls.length; i++) {
     const nlName = listOfNls[i];
     const epubFileBuffer = fs.readFileSync(ebookDir + '/' + nlName);
+    log.debug('file UUID: ', getUuid(RMT_CLOUD_FOLDER_NAME + nlName));
+    log.debug('folder UUID: ', getUuid(RMT_CLOUD_FOLDER_NAME));
     try {
       await client.uploadEPUB(
         nlName,

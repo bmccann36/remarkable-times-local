@@ -5,8 +5,10 @@ import * as getUuid from 'uuid-by-string';
 import log from '../logger';
 
 const deliverNlEbooks = async function (numToDeliver: number): Promise<void> {
-
-  const RMT_CLOUD_FOLDER_NAME = process.env.RMT_CLOUD_FOLDER_NAME ? process.env.RMT_CLOUD_FOLDER_NAME : 'Remarkable Times';
+  const RMT_CLOUD_FOLDER_NAME = process.env.RMT_CLOUD_FOLDER_NAME
+    ? process.env.RMT_CLOUD_FOLDER_NAME
+    : 'Remarkable Times';
+  log.info('delivering ebooks to folder: ', RMT_CLOUD_FOLDER_NAME);
 
   const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
   const deviceToken = fs

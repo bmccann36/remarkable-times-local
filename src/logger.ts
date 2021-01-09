@@ -22,11 +22,14 @@ class SimpleStd implements IStd {
 // coerce string value into boolean
 const shouldPipeLogs: boolean = process.env.LOG_OVERWRITE == 'true' ? true : false;
 const shouldColorize: boolean = process.env.LOG_COLORIZE == 'true' ? true : false;
+const logMinLevel = <TLogLevelName>process.env.LOG_MIN_LEVEL
+  ? <TLogLevelName>process.env.LOG_MIN_LEVEL
+  : 'info';
 
 const log: Logger = new Logger(
   /* specify console overwrite so we capture console.log by 3rd party libs */ {
     overwriteConsole: process.env.LOG_OVERWRITE ? shouldPipeLogs : true,
-    minLevel: <TLogLevelName>process.env.LOG_MIN_LEVEL ? <TLogLevelName>process.env.LOG_MIN_LEVEL : 'info',
+    minLevel: logMinLevel,
     colorizePrettyLogs: process.env.LOG_COLORIZE ? shouldColorize : false, // good for log files
   }
 );
@@ -41,7 +44,7 @@ if (process.env.LOG_ATTACH_TRANSPORT == 'true') {
       error: logToTransport,
       fatal: logToTransport,
     },
-    'debug'
+    logMinLevel
   );
 }
 

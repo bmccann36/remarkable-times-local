@@ -5,8 +5,10 @@ import * as getUuid from 'uuid-by-string';
 import log from '../logger';
 
 const deliverNlEbooks = async function (numToDeliver: number): Promise<void> {
-
-  const RMT_CLOUD_FOLDER_NAME = process.env.RMT_CLOUD_FOLDER_NAME ? process.env.RMT_CLOUD_FOLDER_NAME : 'Remarkable Times';
+  const RMT_CLOUD_FOLDER_NAME = process.env.RMT_CLOUD_FOLDER_NAME
+    ? process.env.RMT_CLOUD_FOLDER_NAME
+    : 'Remarkable Times';
+  log.info('delivering ebooks to folder: ', RMT_CLOUD_FOLDER_NAME);
 
   const ebookDir = path.join(__dirname, '..', '..', '/generatedEBooks');
   const deviceToken = fs
@@ -25,6 +27,8 @@ const deliverNlEbooks = async function (numToDeliver: number): Promise<void> {
   for (let i = 0; i < listOfNls.length; i++) {
     const nlName = listOfNls[i];
     const epubFileBuffer = fs.readFileSync(ebookDir + '/' + nlName);
+    log.debug('file UUID: ', getUuid(RMT_CLOUD_FOLDER_NAME + nlName));
+    log.debug('folder UUID: ', getUuid(RMT_CLOUD_FOLDER_NAME));
     try {
       await client.uploadEPUB(
         nlName,

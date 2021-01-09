@@ -7,6 +7,7 @@ import getContent from './fetchNlContent/getContent';
 import recordHistoryAndFilterOldContent from './fetchNlContent/persistContentHistory';
 import reformatNlHtml from './fetchNlContent/reformatNlHtml';
 import log from './logger';
+import removeLogs from './removeOldContent/removeLogs';
 import removeNls from './removeOldContent/removeNls';
 
 const today = new Date();
@@ -24,6 +25,7 @@ export const orchestrator = async function () {
   log.info('removing previously generated ebooks and old newsletters in cloud drive');
   // we can remove the newsletters concurrently with everything else we do so no need to await completion
   removeNls();
+  removeLogs()
   await removeOldContent();
 
   // fetch newsletters as array of html text strings

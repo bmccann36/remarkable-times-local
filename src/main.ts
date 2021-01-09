@@ -33,7 +33,7 @@ export const orchestrator = async function () {
   let freshNlContentArray: HydratedNl[] = [];
   //? for short circuiting the content check
   if (process.env.BYPASS_CONTENT_DEDUPE_CHECK == 'true') {
-    log.info('[bypass content check] will attempt to deliver all content regardless of history');
+    log.warn('[bypass content check] will attempt to deliver all content regardless of history');
     freshNlContentArray = nlContentArray;
   } else {
     log.info('[content check] checking hashes of previously delivered content');

@@ -1,6 +1,6 @@
 {
   "name": "remarkable-times",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "this package sets up a background process whereby NYT newsletters are automatically delivered to your remarkable tablet",
   "main": "lib/main.js",
   "repository": {

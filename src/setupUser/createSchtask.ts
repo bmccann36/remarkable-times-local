@@ -1,15 +1,15 @@
 import * as path from 'path';
 import * as sudo from 'sudo-prompt';
 
-const indexFilePath = path.join(__dirname, '..', 'index.js');
+const runOrchestrationScriptPath = path.join(__dirname, '..', 'entryScripts/runOrchestration.js');
 const nodeExecutablePath = process.execPath;
 
 // when running this in command prompt windows expect double \\
-const normalizedIndexFilePath = indexFilePath.split('\\').join('\\\\');
+const normalizedScriptPath = runOrchestrationScriptPath.split('\\').join('\\\\');
 const normalizedNodeExecPath = nodeExecutablePath.split('\\').join('\\\\');
 
-// resolves to something like C:\\Program Files\\nodejs\\node.exe C:\\Users\\mccannb\\git-repos\\remarkable-times-local\\src\\index.js run
-const rmtRunCmd = normalizedNodeExecPath + ' ' + normalizedIndexFilePath + ' run';
+// resolves to something like C:\\Program Files\\nodejs\\node.exe C:\\Users\\mccannb\\git-repos\\remarkable-times-local\\lib\\entryScripts\\runOrchestration.js
+const rmtRunCmd = normalizedNodeExecPath + ' ' + normalizedScriptPath;
 const schedTaskCreateCmd = getTaskCreateCommands(rmtRunCmd);
 
 const createSchedTasks = function (): Promise<void> {

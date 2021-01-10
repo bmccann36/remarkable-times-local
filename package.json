@@ -14,7 +14,8 @@
     "build": "rimraf lib && tsc"
   },
   "bin": {
-    "rmt": "lib/index.js"
+    "rmt": "lib/index.js",
+    "remarkable-times": "lib/index.js"
   },
   "dependencies": {
     "axios": "^0.21.1",

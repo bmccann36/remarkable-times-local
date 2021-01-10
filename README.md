@@ -17,7 +17,7 @@ and allow you to do the following
 The fact that this is available as an npm package may cause confusion. This package is not meant to be installed as a dependency to your node project and does not expose a javascript api for your code to use. Instead it is meant to be installed globally on your computer `npm install -g remarkable-times`     
 from there, you use the command line to configure it to your liking and going forward newsletters will be delivered automatically to your remarkable device
 
-
+<iframe src="https://giphy.com/embed/l0unkiodQqmA3lPO5e" width="480" height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/Dogtopia-good-job-success-you-rock-l0unkiodQqmA3lPO5e">via GIPHY</a></p>
   
 
 ## Getting Started

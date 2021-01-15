@@ -1,9 +1,7 @@
-import * as path from 'path';
-
-import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
-import { appendFileSync } from 'fs';
-
 import * as fs from 'fs';
+import { appendFileSync } from 'fs';
+import * as path from 'path';
+import { ILogObject, IStd, Logger, TLogLevelName } from 'tslog';
 
 /**
  * simple utility class for tslog to set internal buffer object
@@ -59,7 +57,7 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
-const todayLogFileName = logDir + `/${dateString}.log`;
+const todayLogFileName = path.join(logDir, `${dateString}.log`);
 
 function logToTransport(logObject: ILogObject) {
   const myStd = new SimpleStd();
